@@ -1,0 +1,117 @@
+\section*{Laboratorul 1}
+
+\subsection*{Obiective}
+
+\begin{itemize}[label=\checkmark]
+    \item Să ne configurăm mediul de dezvoltare;
+    \item Să vedem cum putem folosi GitHub pentru a stoca și gestiona codul sursă;
+    \item Să vedem unde găsim resurse utile de învățare;
+    \item Să folosim debugger-ul pentru a rula codul nostru linie cu linie;
+\end{itemize}
+
+\subsection*{Configurarea mediului de lucru}
+
+Pentru a putea dezvolta și rula programe scrise în C++, veți avea nevoie de un \textbf{compilator} și de un \textbf{editor de text} sau \textbf{mediu de dezvoltare integrat} (\textit{Integrated Development Environment}, pe scurt \textit{IDE}).
+
+Unele medii de dezvoltare includ deja un compilator ca parte din kit-ul de instalare, deci se poate să nu fie nevoie să instalați separat un compilator.
+
+\subsubsection*{Compilatoare}
+
+\begin{itemize}
+    \item \href{https://gcc.gnu.org/}{\textbf{GNU Compiler Collection (GCC)}}
+
+    \textbf{Instrucțiuni de instalare:}
+    \begin{itemize}
+        \item Pe Windows, de obicei se instalează ca parte a distribuției de MinGW (\textit{Minimalist GNU for Windows}). O versiune recentă și ușor de instalat a MinGW se poate găsi pe \href{https://nuwen.net/mingw.html}{acest site}; după extragerea fișierelor într-un director nou, va trebui să adăugați calea subdirectorului \texttt{bin} în variabila de mediu \href{https://www.java.com/en/download/help/path.html}{PATH}.
+
+        \item Pe MacOS, \href{https://www.cyberciti.biz/faq/howto-apple-mac-os-x-install-gcc-compiler/}{se poate instala prin intermediul Xcode}.
+
+        \item Pe Linux, de obicei se instalează folosind package manager-ul distribuției.
+    \end{itemize}
+    
+    \item \href{https://clang.llvm.org/}{\textbf{Clang}}
+
+    \textbf{Instrucțiuni de instalare:}
+    \begin{itemize}
+        \item Pe Windows, \href{https://releases.llvm.org/download.html}{se poate instala ca parte din suita LLVM}.
+
+        \item Pe MacOS, \href{https://stackoverflow.com/a/12228613/5723188}{se poate instala prin intermediul Xcode}.
+
+        \item Pe Linux, de obicei se instalează folosind package manager-ul distribuției.
+    \end{itemize}
+    
+    \item \href{https://visualstudio.microsoft.com/vs/features/cplusplus/}{\textbf{Microsoft Visual C/C++ Compiler (MSVC)}}
+
+    \textbf{Instrucțiuni de instalare:}
+    \begin{itemize}
+        \item Este disponibil exclusiv pe Windows. Se instalează de obicei o dată cu Visual Studio, sau poate fi instalat și separat ca parte din package-ul de \href{https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022}{Build Tools for Visual Studio}.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{Editoare de text și IDE-uri}
+
+Recomandarea ar fi să vă uitați peste toate opțiunile disponibile pentru sistemul vostru de operare, să le încercați și să alegeți programul în care simțiți că lucrați cel mai bine:
+
+\begin{itemize}
+    \item \href{https://www.codeblocks.org/}{\textbf{CodeBlocks}}: poate fi folosit cu oricare dintre compilatoarele de mai sus, sau (pe Windows) puteți instala direct pachetul care include MinGW.
+
+    \item \href{https://code.visualstudio.com/}{\textbf{VS Code}} (împreună cu \href{https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools}{extensia de C/C++}): nu vine cu un compilator inclus, va trebui să aveți deja instalat și configurat un compilator din lista de mai sus.
+
+    \item \href{https://visualstudio.microsoft.com/}{\textbf{Visual Studio}} (doar pentru Windows și MacOS): oferă suport în principal pentru compilatorul MSVC, poate fi folosit și cu GCC/Clang dacă folosiți sistemul de build bazat pe \href{https://cmake.org/}{CMake}.
+
+    \item \href{https://www.jetbrains.com/clion/}{\textbf{CLion}}: parte din suita de unelte de dezvoltare de la \href{https://www.jetbrains.com/}{JetBrains}, pe care le puteți obține gratuit aplicând pentru o \href{https://www.jetbrains.com/community/education/#students}{licență de student}.
+
+    \item \href{https://developer.apple.com/xcode/}{\textbf{Xcode}} (doar pentru MacOS): mediul de dezvoltare oferit de Apple. Poate fi folosit împreună cu Clang sau GCC.
+\end{itemize}
+
+\subsection*{GitHub}
+
+\href{https://github.com/}{GitHub} este o platformă de găzduire și gestionare a codului sursă, folosită de multe organizații și proiecte pentru dezvoltarea colaborativă de software. GitHub se bazează pe \href{https://git-scm.com/}{Git}, un sistem de versionare al codului sursă\footnote{Sistem de versionare al codului sursă și nu numai. Git poate să gestioneze aproape orice tip de fișier, dar se descurcă cel mai bine cu cele text. Creatorul Git \href{https://qr.ae/preQJt}{l-a numit} \textit{the stupid content tracker}}.
+
+Veți folosi GitHub pe parcursul dezvoltării proiectului de la laborator. Recomandarea mea este să vă puneți pe GitHub și temele/proiectele de la celelalte materii --- pe lângă păstrarea lor ca referință, pe viitor le puteți include și în CV.
+
+Vă puteți crea gratuit un cont personal de GitHub apăsând pe butonul de \emph{Sign up} de pe \href{https://github.com/}{pagina lor principală}.
+
+\subsubsection*{GitHub Student Pack}
+
+Pe perioada cât sunteți studenți puteți profita gratuit de GitHub Pro și de multe alte beneficii, ca parte din \href{https://education.github.com/pack}{GitHub Student Developer Pack}.
+
+Puteți aplica pentru acest pachet prin intermediul site-ului lor. Va fi nevoie să vă confirmați statutul de student folosind adresa de e-mail instituțională și (posibil) încărcând o poză cu legitimația/carnetul de student.
+
+\subsubsection*{Utilizarea Git și GitHub}
+
+Pentru a face primii pași pe GitHub, vă recomand să urmați instrucțiunile de \href{https://docs.github.com/en/get-started/quickstart/hello-world}{Quickstart} din documentația lor. Dacă vreți să aflați mai multe despre cum funcționează Git sau vreți să găsiți pașii pentru a face un anumit lucru, puteți consulta \href{https://git-scm.com/doc}{documentația oficială}.
+
+Pentru a sincroniza modificările de pe calculatorul vostru cu proiectul de pe site, puteți instala aplicația \href{https://desktop.github.com/}{GitHub Desktop}, care vă oferă o interfață grafică de gestionare a repository-urilor de pe GitHub.
+
+Totodată, editoarele de text și IDE-urile menționate anterior (cu excepția CodeBlocks) oferă integrare cu Git/GitHub:
+\begin{itemize}
+    \item \href{https://code.visualstudio.com/docs/sourcecontrol/overview}{Instrucțiuni pentru VS Code}
+    \item \href{https://learn.microsoft.com/en-us/visualstudio/version-control/git-with-visual-studio?view=vs-2022}{Instrucțiuni pentru Visual Studio}
+    \item \href{https://www.jetbrains.com/help/clion/using-git-integration.html}{Instrucțiuni pentru CLion}
+    \item \href{https://developer.apple.com/documentation/xcode/configuring-your-xcode-project-to-use-source-control}{Instrucțiuni pentru Xcode}
+\end{itemize}
+
+\subsection*{Referințe}
+
+Tehnic vorbind, singura sursă \emph{oficială} de documentație/specificație pentru limbajul C++ este \href{https://isocpp.org/std/the-standard}{standardul ISO/IEC 14882:2020(E)} --- însă majoritatea persoanelor nu vor avea nevoie să consulte standardul pentru a scrie un program.
+
+O referință neoficială, dar de calitate, care acoperă aproape integral limbajul C++ (inclusiv C) și bibliotecile standard, este \href{https://en.cppreference.com/w/}{cppreference.com}.
+
+Un alt site unde puteți găsi informații și răspunsuri utile este \href{https://stackoverflow.com/}{StackOverflow}.
+
+Alte resurse de învățare găsiți pe \href{https://isocpp.org/get-started}{această pagină} de pe \href{https://isocpp.org/}{site-ul oficial al limbajului C++}.
+
+\subsection*{Debugging}
+
+În cazul în care programul vostru nu compilează, primul pas spre rezolvarea problemei este să citiți și să înțelegeți mesajul de eroare care vi-l dă compilatorul. Puteți încerca de asemenea să căutați pe internet (o parte din) mesajul de eroare primit, ca să vedeți în ce situații este generat și ce reprezintă.
+
+Dacă programul vostru compilează și rulează, dar dă o eroare în timpul execuției sau nu produce output-ul așteptat, va trebui să faceți \href{https://www.freecodecamp.org/news/what-is-debugging-how-to-debug-code/}{debugging}. Toate editoarele de text / IDE-urile menționate anterior oferă suport pentru rularea programului cu un debugger atașat, care vă permite să executați codul rând cu rând și să vedeți cum evoluează valorile variabilelor la fiecare moment:
+
+\begin{itemize}
+    \item \href{https://wiki.codeblocks.org/index.php/Debugging_with_Code::Blocks}{Instrucțiuni pentru CodeBlocks}
+    \item \href{https://code.visualstudio.com/docs/editor/debugging}{Instrucțiuni pentru VS Code}
+    \item \href{https://learn.microsoft.com/en-us/visualstudio/debugger/debugger-feature-tour?view=vs-2022}{Instrucțiuni pentru Visual Studio}
+    \item \href{https://www.jetbrains.com/help/clion/debugging-code.html}{Debugging}
+    \item \href{https://developer.apple.com/documentation/xcode/stepping-through-code-and-inspecting-variables-to-isolate-bugs}{Xcode}
+\end{itemize}

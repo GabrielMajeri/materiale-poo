@@ -1,0 +1,211 @@
+\section*{Seminarul 4}
+
+În cadrul acestui seminar vom discuta despre \emph{moștenire}, un concept din limbajul C++. Moștenirea este o metodă prin care putem \textbf{elimina duplicarea de cod}, reutilizând aceleași date membru și metode între mai multe tipuri de date, dar și prin care putem \textbf{introduce comportament nou}, controlând dinamic ce variantă a unei metode se execută cu ajutorul \emph{polimorfismului la execuție}.
+
+\subsection*{Entitățile dintr-un model de date}
+
+În timpul definirii modelului de date pentru o aplicație, pot apărea în mod natural câmpuri comune între obiecte. Moștenirea (cu modificatorul de acces \texttt{public}) ne permite să grupăm aceste date membru (și metodele asociate) într-o singură clasă, să-i dăm o denumire și să o refolosim.
+
+În astfel de situații, între clasele moștenitoare și clasa de bază putem spune că avem o relație de tip „\emph{is a}” (ca să refolosim terminologia de la baze de date): \textit{\texttt{User} is an \texttt{Entity}}, \textit{\texttt{AdminUser} is a \texttt{User}}, \textit{\texttt{Product} is an \texttt{Entity}} etc.
+
+\subsubsection*{Exemplu: Modelul de date pentru o aplicație de tip magazin}
+
+Acest exemplu conține câteva fragmente de cod dintr-o aplicație care ar putea reține modelul de date pentru un magazin cu utilizatori și produse.
+
+Clasa \texttt{Entity} reprezintă un tip de obiect din modelul nostru de date. Vrem ca toate entitățile să poată fi identificate printr-un ID numeric.
+\begin{lstlisting}
+class Entity
+{ 
+  int id;
+
+public:
+  int getId() const { return id; }
+  void setId(int newId) { id = newId; }
+};
+\end{lstlisting}
+
+Clasa \texttt{User} reține datele unui utilizator al aplicației.
+\begin{lstlisting}
+class User : public Entity
+{
+  string name, email;
+  string role; int age;
+
+public:
+  const string& getEmail() const { return email; }
+  void setEmail(const string& newEmail) 
+  { email = newEmail; }
+
+  // etc.
+};
+\end{lstlisting}
+
+Clasa \texttt{AdminUser} extinde clasa \texttt{User} cu noi funcționalități. Este folosită doar pentru utilizatorii care au rol de admin.
+\begin{lstlisting}
+class AdminUser : public User
+{
+public:
+  void doAdminStuff() { /* ... */ }
+};
+\end{lstlisting}
+
+Clasa \texttt{Product} reține datele pentru un produs.
+\begin{lstlisting}
+class Product: public Entity
+{
+  string name, description;
+  double price;
+
+public:
+  double getPrice() const { return price; }
+  void setPrice(double newPrice) { price = newPrice; }
+
+  // etc.
+}
+\end{lstlisting}
+
+Nu am inclus în codul de mai sus constructorii sau metodele de citire/afișare, însă și acestea pot face referire la cele din clasele de bază, pentru a reduce la minim efortul de implementare. Când folosim moștenirea, este suficient să definim în plus doar comportamentul specific al fiecărei clase.
+
+Un alt avantaj al acestui mod de lucru este că în multe limbaje de programare există unelte denumite \href{https://en.wikipedia.org/wiki/Object\%E2\%80\%93relational_mapping}{\textit{object-relational mappers}}, care pot face automat legătura între ierarhia voastră de clase și o bază de date. De exemplu, dacă veți ajunge să dezvoltați aplicații web în \href{https://dotnet.microsoft.com/en-us/apps/aspnet}{ASP.NET}, biblioteca \href{https://learn.microsoft.com/en-us/ef/}{Entity Framework} vă permite să generați automat tabele într-o bază de date SQL pe baza claselor voastre.
+
+\subsection*{Implementări specifice platformei}
+
+Pe lângă reutilizarea codului existent, moștenirea ne permite și să schimbăm în mod dinamic \emph{implementarea} pe care vrem să o folosim pentru un set de funcții, păstrând aceeași \emph{interfață} (apelăm aceleași metode, dar se execută implementări diferite ale lor).
+
+\subsubsection*{Exemplu: Sistemul de grafică al unui game engine}
+
+Acest exemplu arată cum s-ar putea defini sistemul de grafică într-un motor de jocuri, astfel încât să avem opțiunea de a schimba la execuție API-ul de grafică folosit.
+
+Pentru a desena imagini pe calculator, trebuie să folosim un \href{https://en.wikipedia.org/wiki/API}{API} (\textit{Application Programming Interface}), prin care aplicația noastră comunică cu sistemul de operare și mai departe cu placa video a calculatorului. Dificultatea apare din multitudinea de API-uri care se folosesc în practică: pe Windows putem folosi \href{https://learn.microsoft.com/en-us/windows/win32/direct3d}{Direct3D}, pe MacOS și pe Linux putem folosi \href{https://www.opengl.org/}{OpenGL}, iar pe dispozitivele mobile se folosește de obicei \href{https://www.khronos.org/opengles/}{OpenGL ES} (Embedded Specification).
+
+Clasa \texttt{GraphicsEngine} joacă rolul unei interfețe care descrie ce fel de metode trebuie oferite de fiecare implementare concretă a sistemului de grafică.
+\begin{lstlisting}
+class GraphicsEngine
+{
+protected:
+  GraphicsEngine() { /* cod comun de initializare */ }
+
+public:
+  virtual ~GraphicsEngine()
+  { /* cod comun de deinitializare */ }
+
+  virtual void clearScreen() = 0;
+  virtual void drawRectangle() = 0;
+
+  // ...alte functii de desenare...
+};
+\end{lstlisting}
+
+Avem trei implementări diferite pentru sistemul de grafică, fiecare utilizând un API diferit: Direct3D, OpenGL, respectiv OpenGL ES.
+\begin{lstlisting}
+class Direct3DEngine: public GraphicsEngine
+{
+public:
+  void clearScreen()
+  {
+    // golesc fereastra folosind Direct3D
+  }
+
+  void drawRectangle()
+  {
+    // desenez un dreptunghi folosind Direct3D
+  }
+};
+
+class OpenGLEngine: public GraphicsEngine
+{
+public:
+  void clearScreen()
+  {
+    // golesc fereastra folosind OpenGL
+  }
+
+  void drawRectangle()
+  {
+    // desenez un dreptunghi folosind OpenGL
+  }
+};
+
+class OpenGLESEngine: public GraphicsEngine
+{
+public:
+  void clearScreen()
+  {
+    // golesc ecranul folosind OpenGL ES
+  }
+
+  void drawRectangle()
+  {
+    // desenez un dreptunghi folosind OpenGL ES
+  }
+};
+\end{lstlisting}
+
+După ce game engine-ul pornește și creează o fereastră (la fel, s-ar face prin API-uri specifice fiecărui sistem de operare), acesta inițializează sistemul de grafică potrivit situației și îl folosește pentru a desena pe ecran:
+\begin{lstlisting}
+int main()
+{
+  // ...codul de initializare pentru game engine...
+  
+  GraphicsEngine* graphicsEngine;
+  if (isWindows)
+  {
+    // pe Windows folosesc D3D
+    graphicsEngine = new Direct3DEngine();
+  }
+  else if (isMac || isLinux)
+  {
+    // pe Mac/Linux folosesc OpenGL
+    graphicsEngine = new OpenGLEngine();
+  }
+  else if (isAndroid || isIOS)
+  {
+    // pe mobile folosesc OpenGL ES
+    graphicsEngine = new OpenGLESEngine();
+  }
+  else // ...
+
+  // dupa ce incepe jocul:
+  graphicsEngine->clearScreen();
+  graphicsEngine->drawRectangle();
+
+  // ...
+
+  // la final, eliberez resursele grafice folosite
+  delete graphicsEngine;
+}
+\end{lstlisting}
+
+Avantajul acestei separări între interfețe și implementări este că ne permite să utilizăm aceleași metode de afișare (\texttt{clearScreen} și \texttt{drawRectangle}), fără să ne intereseze (în principiu) ce API de grafică este folosit în spate. În momentul în care apelăm aceste metode pe un pointer de tip \texttt{GraphicsEngine}, care trimite către o implementare concretă a sistemului de grafică, beneficiem de \textbf{polimorfism la execuție}.
+
+În acest exemplu, motorul de grafică este ales în mod determinist la pornirea programului, dar nimic nu ne previne să-l schimbăm pe baza unor setări citite dintr-un fișier. De exemplu, Unity \href{https://docs.unity3d.com/2019.4/Documentation/Manual/GraphicsAPIs.html}{permite schimbarea API-ului de grafică folosit pentru fiecare platformă din setările proiectului}.
+
+\subsection*{Reutilizarea implementării}
+
+Exemplele anterioare au folosit moștenirea cu modificatorul de acces \texttt{public}, pentru că acesta este cel mai comun scenariu de utilizare pentru moștenire (în limbaje precum C\# sau Java, este chiar singura posibilitate). În C++, se pot folosi și modificatorii \texttt{protected} sau \texttt{private}. În acest caz, clasa moștenitoare nu mai are o relație de tipul „\emph{is a}” cu clasa de bază, ci mai degrabă o relație de tipul \href{https://stackoverflow.com/a/1374362/5723188}{„\emph{is implemented in terms of}”}.
+
+\subsubsection*{Exemplu: Extinderea unei clase din biblioteca standard}
+
+Un scenariu în care vrem să moștenim o clasă, dar să ascundem metodele ei în exterior, este când vrem să o reutilizăm mai convenabil în implementarea unor noi funcționalități.
+
+În codul de mai jos, ne-am făcut propria noastră clasă pentru o stivă alocată dinamic de numere întregi (în loc să folosim \href{https://www.geeksforgeeks.org/stack-in-cpp-stl/}{\texttt{stack<int>}} oferit de biblioteca standard). Valorile sunt stocate cu ajutorul clasei \texttt{vector<int>}.
+\begin{lstlisting}
+class IntStack : private vector<int>
+{
+public:
+  using vector<int>::clear;
+
+  void push(int x) { push_back(x); }
+
+  int pop()
+  {
+    int top = back();
+    pop_back();
+    return top;
+  }
+};
+\end{lstlisting}
+
+Am fi putut la fel de bine să nu moștenim această clasă și în schimb să avem o dată membru de tip \texttt{vector<int>}, dar prin moștenire putem reutiliza implementarea funcției \texttt{clear} fără să o mai redefinim.
+
+Pe instanțele clasei \texttt{IntStack} nu putem apela decât trei metode: \texttt{clear} (care apelează direct metoda \texttt{clear} din \texttt{vector<int>}), \texttt{push} și \texttt{pop}. Toate celelalte metode ale clasei de bază (care ne-ar permite să obținem lungimea vectorului, să inserăm elemente în mijlocul lui etc.) sunt inaccesibile în afara clasei \texttt{IntStack}.

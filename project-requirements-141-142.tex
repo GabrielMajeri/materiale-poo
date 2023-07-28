@@ -1,0 +1,352 @@
+\textbf{\LARGE Cerințe proiect laborator POO}
+\vspace{1.5em}
+
+\hyperref[phase1]{Cerințe etapa 1}
+\, | \,
+\hyperref[phase2]{Cerințe etapa 2}
+\, | \, \hyperref[phase3]{Cerințe etapa 3}
+
+\section*{Prezentare generală}
+ 
+Nota voastră la laboratorul de POO se acordă pe baza unui \textbf{proiect individual}, dezvoltat pe parcursul primelor 13 săptămâni din semestru\footnote{În ultima săptămână veți da un colocviu (test pe calculator), până la acel moment trebuie să aveți situația la laborator încheiată.}. Proiectul va fi evaluat în \textbf{trei etape}, cu cerințe și deadline-uri distincte pentru fiecare\footnote{Cerințele sunt gândite în așa fel încât să continuați programul din etapa anterioară, adăugând funcționalități în plus la codul existent.}.
+
+Proiectul constă în dezvoltarea unei \textbf{aplicații C++} care \textbf{să gestioneze un model de date}, folosind paradigma de \textbf{programare orientată pe obiecte}. Va trebui să definiți atât clasele care să reprezinte entitățile din modelul vostru, cât și metodele/funcțiile corespunzătoare care să implementeze „logica de business”.
+
+\section*{Notare}
+
+Pentru fiecare etapă, veți primi \textbf{o notă de la 1 la 12}. Nota 10 se acordă pentru implementarea corectă a tuturor \textbf{cerințelor de bază}, putând primi până la două puncte în plus dacă rezolvați și \textbf{cerințele suplimentare} (vor fi indicate corespunzător).
+
+Nota finală este media notelor de pe fiecare etapă. Trebuie să aveți minim \textbf{nota 5} ca să promovați laboratorul și să puteți participa la colocviu/examen.
+
+\section*{Alegerea temei}
+
+Recomandarea mea este să alegeți o temă care vă pasionează, ca să fiți motivați să lucrați la proiect și să îl duceți până la capăt.
+
+\subsection*{Exemple de teme}
+\begin{itemize}
+    \item Magazin online (produse, cumpărători, comenzi, reduceri etc.)
+
+    \item Gestiunea resurselor umane (firmă, angajați, echipe, salarii etc.)
+
+    \item Gestiunea unei clinici/unui spital (medici, pacienți, consultații, medicamente etc.)
+
+    \item Project management (proiect, task, echipă, membru al echipei etc.)
+
+    \item Gestiunea școlarității (studenți, note, discipline, profesori etc)
+    
+    \item Bibliotecă (carte, autor, categorie, împrumut etc.)
+
+    \item Music player (album, artist, melodie, playlist etc.)
+
+    \item Grădină zoologică (animale, bilete, hrană pentru animale etc.)
+
+    \item Formula 1 (echipe, mașini, piloți, raliuri etc.)
+
+    \item Cinematograf (filme, actori, vizionări, bilete etc.)
+\end{itemize}
+Puteți alege orice alt domeniu doriți. Indiferent de tema aleasă, va \textbf{trebui să o confirmați} cu mine (în persoană când veniți la laborator, sau pe e-mail/Teams dacă nu puteți ajunge) \textbf{până la sfârșitul săptămânii \subjectchoosingdeadlineweek} de facultate.
+
+De preferat ar fi să vă alegeți teme distincte. Cel mult doi studenți pot avea o temă identică/similară. Chiar și în acest caz, vor trebui să aibă o structură diferită a claselor.
+
+\textbf{Recomandare:} după ce v-ați ales tema și ați confirmat-o, puteți începe prin a vă face o „schiță” cu clasele de care veți avea nevoie, ce date și metode vor reține fiecare și care vor fi legăturile dintre ele. Puteți face asta pe hârtie sau folosind o aplicație cum ar fi \href{https://excalidraw.com/}{Excalidraw}.
+
+\textbf{Recomandare:} familiarizați-vă cât mai curând cu și începeți să folosiți debugger-ul din mediul vostru de lucru. O să vă petreceți 20\% din timp scriind efectiv cod și peste 80\% din timp încercând să înțelegeți de ce nu funcționează cum v-ați fi așteptat.
+
+\newpage
+
+\section*{Cerințe etapa 1} \label{phase1}
+
+\textbf{Deadline:} cerințele trebuie implementate până la \phaseonedeadlineweekperiod{} \textbf{săptămânii \phaseonedeadlineweek} de facultate (\textbf{\phaseonedeadlinedate}). Pentru a fi punctați, va trebui să le și prezentați la laboratorul din \textbf{săptămâna \phaseonepresentationweek}.
+
+\subsection*{Criterii generale}
+\marginpar{(1p)}
+
+\begin{itemize}
+    \item Trebuie să aveți în \texttt{main} un cod corespunzător care să testeze/utilizeze funcționalitățile implementate.
+    
+    \item Clasele/metodele care nu sunt utilizate sau la care nu se face referire nicăieri \textbf{nu vor fi punctate}.
+
+    \item Încercați să păstrați codul curat:
+    \begin{itemize}
+        \item Folosiți nume de variabile/funcții/tipuri de date cu sens pentru oameni (e.g. \texttt{nr\_angajati} în loc de \texttt{n}).
+        
+        \item Folosiți formatarea automată oferită de editorul vostru de text și încercați să păstrați un stil uniform.
+        
+        \item Folosiți mai degrabă mai multe clase/metode mai scurte, decât o singură clasă/metodă foarte lungă.
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Versionarea codului}
+\marginpar{(1p)}
+
+\begin{itemize}
+    \item Codul sursă \textbf{trebuie} să fie încărcat pe GitHub.
+    
+    \item Trebuie să îmi dați și mie \textbf{acces de citire} la repository-ul în care aveți proiectul, dacă nu este public.
+    
+    Instrucțiunile pentru cum puteți adăuga colaboratori la un repo se găsesc \href{https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-access-to-your-personal-repositories/inviting-collaborators-to-a-personal-repository}{aici}. Mă puteți adăuga prin username (\texttt{GabrielMajeri}) sau prin e-mail (\texttt{constantin.majeri@s.unibuc.ro}).
+    
+    \item \textbf{Recomandare:} adăugați de la început \href{https://git-scm.com/docs/gitignore}{un fișier \texttt{.gitignore}} la repo-ul vostru ca să nu includeți accidental fișierele compilate / binare în Git. Puteți găsi \href{https://github.com/github/gitignore/blob/main/C\%2B\%2B.gitignore}{aici} un exemplu de fișier \texttt{.gitignore} pentru C++.
+
+    \item \textbf{Recomandare:} păstrați commit-urile concise și independente. Găsiți \href{https://gist.github.com/luismts/495d982e8c5b1a0ced4a57cf3d93cf60}{aici} un set de bune practici pentru commit-urile de Git.
+\end{itemize}
+
+\subsection*{Documentație}
+\marginpar{(1p)}
+
+\begin{itemize}
+    \item În repo-ul de pe GitHub trebuie să aveți și \href{https://www.makeareadme.com/}{un fișier \texttt{README}}, de preferat formatat cu \href{https://www.markdownguide.org/}{Markdown}, în care să includeți cel puțin:
+    \begin{itemize}
+        \item \textbf{Numele} proiectului
+        \item \textbf{Tema} aleasă
+        \item O listă cu \textbf{clasele} pe care le-ați implementat și o scurtă descriere a ce reprezintă fiecare
+        \item O listă cu \textbf{funcționalitățile} pe care le are aplicația voastră la momentul actual (ex.: „capabilă să citească și să rețină o listă de angajați”, „poate calcula prețul mediu al produselor aflate în stoc” etc.)
+    \end{itemize}
+
+    \item \textbf{Recomandare:} actualizați acest fișier pe parcurs ce dezvoltați proiectul. Vă va fi mult mai ușor să-l prezentați altor persoane.
+\end{itemize}
+
+\subsection*{Clase}
+\marginpar{(2p)}
+
+\begin{itemize}
+    \item Trebuie să respectați \textbf{principiul encapsulări} (nu aveți voie să aveți date membre publice). Metodele pot fi publice sau private.
+
+    \item Trebuie să definiți \textbf{minim \phaseoneminimumnumberofclasses{} clase}, relevante pentru tema aleasă.
+    
+    Sunt luate în considerare și clasele utilitare, cum ar fi o clasă pentru șiruri de caractere sau una pentru vectori alocați dinamic.
+
+    \item \textbf{Minim \phaseoneminimumnumberofcompositions{} dintre clase} trebuie să fie corelate prin \textbf{compunere} (ex. să aveți o dată membru de tip \texttt{Adresă} în clasa \texttt{Contact}, să aveți un vector de \texttt{Angajat} în clasa \texttt{Companie} etc.) 
+
+    \item Pentru etapa 1, \textbf{nu} aveți voie să folosiți clasele container/utilitare din biblioteca standard (\texttt{std::vector}, \texttt{std::string} șamd). Puteți refolosi în schimb clasele implementate de voi la laborator.
+\end{itemize}
+
+\subsection*{Metode}
+\marginpar{(2p)}
+
+\begin{itemize}
+    \item \textbf{Minim 3 getteri și 3 setteri} pentru datele membru (pot fi pentru câmpuri diferite, din clase diferite).
+
+    \item \textbf{Minim 2 metode de „logică de business”} care să aibă sens pentru tema voastră (e.g.: calculează prețul unui produs aplicând o reducere, returnează salariul mediu al angajaților din firmă etc.)
+
+    \item Pentru \textbf{minim 2 clase} trebuie să implementați o metodă de \textbf{afișare} pe ecran a datelor din acea clasă (în ce format vreți voi).
+    
+    Alternativ, se acceptă și doar să supraîncărcați \texttt{operator<<} pentru aceste clase și să implementați acolo afișarea.
+
+    \item Pentru \textbf{minim o clasă} trebuie să supraîncărcați \texttt{operator<<} pentru afișare (dacă ați făcut acest lucru la subpunctul anterior, nu este nevoie să o mai faceți încă o dată).
+\end{itemize}
+
+\subsection*{Constructori}
+\marginpar{(0,5p)}
+
+\begin{itemize}
+    \item \textbf{Minim 3 clase} trebuie să aibă constructori fără parametru, respectiv parametrizați, care să inițializeze datele membre.
+\end{itemize}
+
+\subsection*{Constructori de copiere și \texttt{operator=}}
+\marginpar{(0,5p)}
+
+\begin{itemize}
+    \item Pentru \textbf{minim două clase} trebuie să implementați explicit constructorul de copiere și să supraîncărcați \texttt{operator=}.
+
+    \item \textbf{Cel puțin una} dintre aceste clase trebuie să fie dintre cele care folosesc \textbf{alocare dinamică}.
+\end{itemize}
+
+\subsection*{Alocare dinamică}
+\marginpar{(1p)}
+
+\begin{itemize}
+    \item \textbf{Minim o clasă} trebuie să facă alocare dinamică de memorie (fie pentru un singur obiect, fie pentru un vector de obiecte).
+
+    \item Toată memoria alocată dinamic trebuie \textbf{eliberată} corespunzător. Veți fi depunctați pentru \textit{memory leaks}.
+
+    \item \textbf{Minim o clasă} trebuie să aibă un \textbf{destructor} (netrivial).
+\end{itemize}
+
+\subsection*{Bonus}
+\marginpar{(2p)}
+
+Fiecare cerință bonus valorează \textbf{1 punct}. Puteți rezolva la alegere oricare două dintre cele trei pentru a obține punctajul maxim.
+
+\begin{itemize}
+    \item Implementați un \textbf{meniu interactiv} în \texttt{main}, care să permită:
+    \begin{itemize}
+        \item \textbf{Citirea} de la tastatură și \textbf{crearea} a \textbf{cel puțin 3 tipuri de obiecte} dintre cele definite de voi;
+        \item \textbf{Afișarea} acestor obiecte, după ce au fost citite de aplicație;
+        \item \textbf{Apelarea unei metode} pe ele (alta în afară de cea de afișare).
+    \end{itemize}
+    
+    \item Implementați \textbf{constructorul de mutare} și supraîncărcați \textbf{\texttt{operator=} de mutare} pentru cel puțin o clasă care gestionează memorie alocată dinamic.
+    
+    \item Definiți și utilizați o \textbf{clasă imbricată}, asemănător cu clasa \texttt{Nod}, definită la exercițiul cu \texttt{IntList} de la laborator (dar trebuie să aibă sens pentru tema voastră).
+\end{itemize}
+
+\subsection*{Oficiu}
+\marginpar{(1p)}
+
+\newpage
+
+\section*{Cerințe etapa 2} \label{phase2}
+
+\textbf{Deadline:} cerințele trebuie implementate până la sfârșitul \textbf{săptămânii \phasetwodeadlineweek} de facultate (\textbf{\phasetwodeadlinedate}). Pentru a fi punctați, va trebui să le și prezentați la laboratorul din \textbf{săptămâna \phasetwopresentationweek}.
+
+Începând cu etapa a 2-a, \textbf{aveți voie} să folosiți clasele container din biblioteca standard (\texttt{std::string}, \texttt{std::vector} etc.)
+
+\subsection*{Moștenire}
+\marginpar{(2p)}
+
+\begin{itemize}
+    \item Definiți \textbf{minim două ierarhii diferite de moștenire} (două ierarhii de moștenire sunt considerate diferite dacă nu au aceeași clasă de bază și aceeași clasă care moștenește clasa/clasele de bază).
+
+    \item Utilizați \textbf{minim doi modificatori de acces diferiți} pe clasa care se moștenește (\texttt{public}/\texttt{protected}/\texttt{private}); alegerea vă aparține, dar trebuie să fie justificată în funcție de nevoile proiectului.
+
+    \item \textbf{Minim o clasă} care să folosească moștenire multiplă (să extindă mai multe clase/interfețe).
+
+    \item Apelați \textbf{cel puțin o dată} un constructor (cu parametri) dintr-o clasă de bază, folosind o listă de inițializare în constructorul clasei copil.
+
+    \item \textbf{Minim două date membru} și \textbf{minim o metodă} care să aibă modificatorul de acces \texttt{protected} (în mod util, să fie accesate/apelate dintr-o clasă care le moștenește).
+\end{itemize}
+
+\subsection*{Interfețe și metode virtuale}
+\marginpar{(2p)}
+
+\begin{itemize}
+    \item Definiți și extindeți (moșteniți) \textbf{minim o interfață} (clasă fără date membru, doar metode pur virtuale și un destructor virtual) care să aibă \textbf{minim două metode} (alternativ: minim două interfețe, fiecare cu cel puțin o metodă).
+
+    \item Definiți și extindeți (moșteniți) \textbf{minim o clasă de bază abstractă} (clasă care poate avea date membru, dar are cel puțin o metodă pur virtuală).
+
+    \item Trebuie să aveți / să identificați în proiect \textbf{cel puțin o situație} în care să fie nevoie de și să se apeleze destructorul virtual (i.e. să ștergeți un obiect alocat dinamic de tipul unei clase moștenitoare, la care să vă referiți prin intermediul unui pointer la clasa de bază).
+
+    \item Definiți \textbf{cel puțin \ifreducedrequirements 2 \else 4 \fi metode virtuale} care să fie suprascrise în clasele moștenitoare. Pot fi pur virtuale sau cu o implementare implicită. Se iau în considerare și metodele definite la celelalte subpuncte, exceptând destructorii virtuali.
+\end{itemize}
+
+\subsection*{Polimorfism la execuție}
+\marginpar{(2p)}
+
+\begin{itemize}
+    \item Identificați \textbf{minim \ifreducedrequirements 2 \else 4 \fi locuri} în care să aibă loc polimorfism la execuție (\emph{dynamic dispatch}) în proiectul vostru (e.g.\@ apelul unor metode virtuale prin intermediul unor pointeri/referințe către clasa de bază).
+
+    \item Identificați \textbf{minim \ifreducedrequirements 2 \else 4 \fi instanțe de upcasting} în codul vostru (e.g.\@ atribuirea unor obiecte de tipul unor clase moștenite la pointeri/referințe către clasa de bază).
+    
+    \item Realizarea downcasting-ului \textbf{în cel puțin o situație} în codul vostru (unde are sens), folosind \texttt{dynamic\_cast} sau RTTI.
+\end{itemize}
+
+\subsection*{Excepții}
+\marginpar{(2p)}
+
+\begin{itemize}
+    \item Definiți \textbf{minim un tip de excepție custom}, care să extindă clasa \href{https://cplusplus.com/reference/exception/exception/}{\texttt{exception}} din biblioteca standard.
+
+    \item Aruncați excepții în \textbf{minim \ifreducedrequirements 2 \else 4 \fi funcții/metode diferite} (folosiți tipuri de excepții definite de voi sau cele din biblioteca standard).
+
+    \item Implementați \textbf{minim un bloc} \texttt{try...catch} care să prindă o excepție aruncată de voi (cu mențiunea explicită a tipului acesteia) și să o trateze într-un fel (în funcție de specificul erorii).
+
+    \item Implementați \textbf{minim un bloc} \texttt{try...catch} care să prindă o excepție, să o proceseze și să re-arunce un alt tip de excepție din blocul \texttt{catch}.
+\end{itemize}
+
+\subsection*{Variabile și metode statice}
+\marginpar{(1p)}
+
+\begin{itemize}
+    \item Definiți o variabilă membru statică în \textbf{cel puțin o clasă}.
+
+    \item Implementați \textbf{cel puțin două metode statice} în clasele voastre (din care \textbf{cel puțin una} trebuie să acceseze/folosească variabila statică definită la subpunctul anterior).
+\end{itemize}
+
+\subsection*{Bonus}
+\marginpar{(2p)}
+
+Fiecare cerință bonus valorează \textbf{1 punct}.
+
+\begin{itemize}
+    \item \textbf{Minim o situație} de moștenire în diamant (trebuie să aibă sens pentru tema voastră). Moștenirea în diamant se referă la a avea o clasă de bază, pe care o moștenesc cu \texttt{virtual} două clase distincte, iar apoi aveți o clasă care moștenește ambele clase intermediare.
+
+    \item Utilizarea \textbf{unei \href{https://learn.microsoft.com/en-us/cpp/cpp/lambda-expressions-in-cpp?view=msvc-170}{lambda expresii}} pentru a parametriza funcționalitatea unei funcții sau a unei clase. Puteți transmite ca parametru sau reține o lambda expresie folosind tipul de date \href{https://en.cppreference.com/w/cpp/utility/functional/function}{\texttt{std::function}}.
+
+    Se acordă punctaj parțial dacă doar folosiți lambda expresii pentru apelarea unor funcții care deja există în biblioteca standard (de exemplu, \texttt{std::sort}), fără să definiți voi o funcție/clasă care să primească un obiect de acest tip. 
+\end{itemize}
+
+\subsection*{Oficiu}
+\marginpar{(1p)}
+
+\newpage
+
+\section*{Cerințe etapa 3} \label{phase3}
+
+\textbf{Deadline:} cerințele trebuie implementate până la sfârșitul \textbf{săptămânii \phasethreedeadlineweek} de facultate (\textbf{\phasethreedeadlinedate}). Pentru a fi punctați, va trebui să le și prezentați la laboratorul din \textbf{săptămâna \phasethreepresentationweek}.
+
+\subsection*{Programare generică}
+\marginpar{(3p)}
+
+\begin{itemize}
+    \item Utilizați \textbf{minim o clasă șablon} (\texttt{template}) \textbf{definită de voi}. Trebuie să fie parametrizată de \textbf{cel puțin un tip de date generic} (cel puțin un \texttt{typename}), care să fie folosit în mod util în interiorul clasei (e.g. pentru a defini un atribut, o metodă etc.).
+    
+    \item Definiți și apelați \textbf{minim o funcție șablon} (poate fi funcție liberă sau metodă a unei clase care nu este neapărat generică). Trebuie să fie parametrizată de \textbf{cel puțin un tip de date generic} (cel puțin un \texttt{typename}), care să fie folosit în definirea funcției (e.g. parametru, tip de date returnat).
+    
+    \item Definiți \textbf{cel puțin o implementare specializată} pentru clasa șablon sau funcția șablon (nu neapărat pentru ambele).
+
+    \textbf{Referințe utile:} \href{https://www.geeksforgeeks.org/template-specialization-c/}{specializarea claselor/funcțiilor șablon în C++}.
+\end{itemize}
+
+\subsection*{Design patterns}
+\marginpar{(2p)}
+
+Identificați \textbf{minim 2 \emph{object-oriented design patterns} diferite} în clasele implementate de voi.
+
+\textbf{Observație:} pattern-ul trebuie să existe în codul scris de voi. De exemplu, dacă ați folosit o clasă iterator deja existentă din biblioteca standard, nu înseamnă că ați implementat design pattern-ul \textit{iterator}.
+
+\textbf{Referințe utile:} \href{https://www.oodesign.com/}{\emph{design patterns} cu exemple de cod și când se utilizează}, \href{https://refactoring.guru/design-patterns/catalog}{catalog de \emph{design patterns} comune}.
+
+\subsection*{Biblioteca standard}
+\marginpar{(2p)}
+
+\begin{itemize}
+    \item Utilizarea a \textbf{minim două tipuri de date \textit{container} diferite} din STL.
+    
+    \textbf{Exemple:} \href{https://en.cppreference.com/w/cpp/container/vector}{\texttt{vector}}, \href{https://en.cppreference.com/w/cpp/string/basic_string}{\texttt{string}}, \href{https://en.cppreference.com/w/cpp/container/array}{\texttt{array}}, \href{https://en.cppreference.com/w/cpp/container/list}{\texttt{list}}, \href{https://en.cppreference.com/w/cpp/container/set}{\texttt{set}}, \href{https://en.cppreference.com/w/cpp/container/map}{\texttt{map}} etc.
+
+    \textbf{Observație:} ar trebui să puteți înlocui toată alocarea dinamică explicită din codul vostru cu clasele container din biblioteca standard, plus clase de tip \emph{smart pointers} (menționate mai jos).
+
+    \item Utilizarea a \textbf{minim două funcții utilitare diferite} din biblioteca standard (funcții libere, nu metode).
+
+    \textbf{Exemple:} \href{https://en.cppreference.com/w/cpp/algorithm/sort}{\texttt{sort}}, 
+    \href{https://en.cppreference.com/w/cpp/algorithm/find}{\texttt{find}}, \href{https://en.cppreference.com/w/cpp/algorithm/search}{\texttt{search}}, 
+    \href{https://en.cppreference.com/w/cpp/algorithm/all_any_none_of}{\texttt{all\_of}/\texttt{any\_of}/\texttt{none\_of}},
+    \href{https://en.cppreference.com/w/cpp/algorithm/accumulate}{\texttt{accumulate}}, 
+    \href{https://en.cppreference.com/w/cpp/algorithm/fill}{\texttt{fill}},
+    \href{https://en.cppreference.com/w/cpp/algorithm/generate}{\texttt{generate}}, \href{https://en.cppreference.com/w/cpp/algorithm/copy}{\texttt{copy}}, \href{https://en.cppreference.com/w/cpp/algorithm/reverse}{\texttt{reverse}}, orice alte funcții din fișierul header din biblioteca standard \href{https://cplusplus.com/reference/algorithm/}{\texttt{<algorithm>}}.
+\end{itemize}
+
+\subsection*{Smart pointers}
+\marginpar{(2p)}
+
+Utilizați în mod corespunzător \textbf{minim două tipuri diferite de \emph{smart pointers}} din biblioteca standard. 
+
+Prin \emph{smart pointer} ne referim la una dintre clasele \href{https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper}{\texttt{std::reference\_wrapper}}\footnote{\texttt{reference\_wrapper} este mai degrabă un \emph{smart reference}, dar se utilizează în mod similar cu un \emph{smart pointer}.}, \href{https://en.cppreference.com/w/cpp/memory/unique_ptr}{\texttt{std::unique\_ptr}}, \href{https://en.cppreference.com/w/cpp/memory/shared_ptr}{\texttt{std::shared\_ptr}} sau \href{https://en.cppreference.com/w/cpp/memory/weak_ptr}{\texttt{std::weak\_ptr}}.
+
+Puteți să folosiți aceste clase în locul referințelor sau pointerilor obișnuiți din codul vostru.
+
+\textbf{Referințe utile:} \href{https://www.geeksforgeeks.org/smart-pointers-cpp/}{avantajele \emph{smart pointers}}, \href{https://learn.microsoft.com/en-us/cpp/cpp/smart-pointers-modern-cpp?view=msvc-170}{utilizarea \emph{smart pointers} în C++}.
+
+\subsection*{Bonus}
+\marginpar{(2p)}
+
+Fiecare cerință bonus valorează \textbf{1 punct}.
+
+\begin{itemize}
+    \item \textbf{Utilizarea modificatorului \texttt{const}} în mod corect, peste tot unde este posibil și are sens în program (pe date membre, pe metode, la transmiterea parametrilor prin referință etc.).
+
+    \textbf{Referințe utile:} \href{https://isocpp.org/wiki/faq/const-correctness}{\texttt{const} correctness}.
+
+    \item Folosirea \textbf{unei biblioteci utilitare} din biblioteca standard, în afară de cele cu care am lucrat la laborator. Puteți alege (în funcție de specificul proiectului) dintre:
+    \begin{itemize}
+        \item \href{https://en.cppreference.com/w/cpp/chrono}{\texttt{chrono}}: lucru cu date și timp.
+        \item \href{https://en.cppreference.com/w/cpp/regex}{\texttt{regex}}: lucru cu expresii regulate (pentru căutarea/înlocuirea de text).
+        \item \href{https://en.cppreference.com/w/cpp/numeric/random}{\texttt{random}}: generare de numere aleatoare.
+        \item \href{https://en.cppreference.com/w/cpp/thread}{\texttt{thread}}: execuție paralelă a codului.
+    \end{itemize}
+    Pentru a fi punctați, trebuie să \textbf{instanțiați} și să \textbf{utilizați} cel puțin câteva tipuri de date din biblioteca aleasă. De exemplu, pentru \texttt{random}: să inițializați un generator de numere random, să alegeți o distribuție, să generați niște numere aleatoare pe care să le utilizați în aplicație.
+\end{itemize}
+
+\subsection*{Oficiu}
+\marginpar{(1p)}

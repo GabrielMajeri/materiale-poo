@@ -1,0 +1,423 @@
+\section*{Exerciții -- Partea 1}
+
+\begin{enumerate}
+    \item Scrieți un program în C++ care să citească de la tastatură două numere întregi \(a\) și \(b\) și să afișeze suma lor, \(a + b\).
+
+    \textbf{Referințe utile:} \href{https://cplusplus.com/doc/tutorial/program_structure/}{structura unui program C++}, \href{https://cplusplus.com/doc/tutorial/variables/}{declararea de variabile}, \href{https://cplusplus.com/doc/tutorial/basic_io/}{operații de citire și de afișare}.
+
+    \item Scrieți un program în C++ care să citească de la tastatură un număr natural \(n\) și apoi să afișeze, pe câte un rând, toate numerele naturale de la \(1\) la \(n\), cu mențiunea că numerele care sunt divizibile cu \(3\) vor fi înlocuite cu textul \texttt{Fizz}, numerele care sunt divizibile cu \(5\) vor fi înlocuite cu textul \texttt{Buzz}, iar numerele care sunt divizibile și cu \(3\) și cu \(5\) vor fi înlocuite cu textul \texttt{FizzBuzz}\footnote{Aceasta este celebra problemă \href{https://en.wikipedia.org/wiki/Fizz_buzz}{\textit{fizz buzz}}, despre care se spunea că e o problemă tipică de interviu de angajare ca programator.}.
+
+    \textbf{Referințe utile:} \href{https://www.geeksforgeeks.org/cpp-loops/}{\texttt{for} loop}, \href{https://www.tutorialspoint.com/cplusplus/cpp_if_else_statement.htm}{structură condiționată \texttt{if...else}}, \href{https://www.geeksforgeeks.org/modulo-operator-in-c-cpp-with-examples/}{operatorul modulo (\%)}.
+    
+    \item Scrieți un program în C++ care să citească de la tastatură un număr întreg \(n\), care să fie \emph{natural}, \emph{nenul} și \emph{par}.
+
+    Programul îi va cere utilizatorului să introducă la tastatură numărul, va citi un număr întreg și va continua să facă acest lucru până când numărul citit respectă cerințele impuse (să fie \(> 0\) și divizibil cu 2).
+
+    La final, afișați pe ecran valoarea lui \(n / 2\).
+
+    \textbf{Observație:} puteți folosi acest pattern când aveți nevoie să citiți date de la tastatură care să respecte un anumit format.
+
+    \textbf{Referințe utile:} \href{https://www.tutorialspoint.com/cplusplus/cpp_do_while_loop.htm}{structură repetitivă \texttt{do...while}}
+
+    \item Limbajul C++ permite \emph{supraîncărcarea} funcțiilor: definirea mai multor subprograme care au \emph{aceeași denumire}, dar diferă prin \emph{tipul} sau \emph{numărul} parametrilor pe care îi acceptă.
+
+    Implementați mai multe funcții, toate denumite \texttt{absolute\_value}, care să calculeze \href{https://en.wikipedia.org/wiki/Absolute_value}{valoarea absolută} a unui:
+    \begin{itemize}
+        \item Număr întreg (un parametru de tip \texttt{int});
+        \item Număr rațional (un parametru de tip \texttt{double});
+        \item Număr complex (doi parametrii de tip \texttt{double}, care reprezintă partea lui reală și partea lui imaginară)
+        \item Vector din \(\reals^3\) (trei parametrii de tip \texttt{double}, care reprezintă coordonatele vectorului).
+    \end{itemize}
+    
+    Antetele lor ar trebui să fie:
+    \begin{lstlisting}
+double absolute_value(int nr);
+double absolute_value(double nr);
+double absolute_value(double real, double imag);
+double absolute_value(double x, double y, double z);
+    \end{lstlisting}
+
+    Apelați fiecare dintre aceste funcții din subprogramul principal. Observați cum compilatorul este capabil să determine automat la care variantă a funcției vă referiți.
+
+    \textbf{Referințe utile:} \href{https://www.geeksforgeeks.org/function-overloading-c/}{supraîncărcarea funcțiilor în C++}, \href{https://en.cppreference.com/w/cpp/numeric/math/sqrt}{\texttt{std::sqrt}};
+
+    \item Implementați o funcție în C++ care să interschimbe valorile a doi parametri, numere întregi, \textbf{transmiși prin referință}.
+
+    Antetul funcției ar trebui să fie: \texttt{void interschimba(int\& a, int\& b);}
+
+    Scrieți și un cod corespunzător în subprogramul principal, care să apeleze acest subprogram și să verifice că funcționează cum trebuie.
+
+    \textbf{Referințe utile:} \href{https://www.programiz.com/cpp-programming/examples/swapping}{interschimbarea a două numere întregi}, \href{https://www.geeksforgeeks.org/references-in-c/}{referințe în C++}.
+
+    \item Implementați o funcție în C++ care să interschimbe valorile către care trimit cei doi parametri de tip pointer la numere întregi (\texttt{int*}).
+
+    Pentru a obține un pointer care să trimită la o variabilă deja declarată, putem folosi \href{https://learn.microsoft.com/en-us/cpp/cpp/address-of-operator-amp?view=msvc-170}{operatorul „address-of”} (ampersandul \texttt{\&}). Pentru a citi valoarea din zona de memorie indicată de către un pointer (presupus valid), putem folosi \href{https://en.wikipedia.org/wiki/Dereference_operator}{operatorul de dereferențiere} (asteriscul \texttt{*}).
+
+    Antetul funcției ar trebui să fie: \texttt{void interschimba(int* a, int* b);}
+
+    O puteți apela în \texttt{main} în felul următor:
+    \begin{lstlisting}
+int x = 1, y = 2;
+interschimba(&x, &y);
+// x ar trebui sa aiba acum valoarea 2,
+// iar y valoarea 1
+    \end{lstlisting}
+
+    \textbf{Observație:} în limbajul C nu există referințe. În acel caz, pointerii sunt singurul mod prin care ne putem referi cu mai multe nume la aceeași zonă de memorie.
+
+    \textbf{Referințe utile:} \href{https://cplusplus.com/doc/tutorial/pointers/}{utilizarea pointerilor în C++}, \href{https://www.geeksforgeeks.org/cpp-dereferencing/}{operatorii de referențiere și de dereferențiere}, \href{https://www.programiz.com/cpp-programming/pointers-function}{intereschimbarea a două numere folosind pointeri}.
+
+    \item Scrieți un program în C++ care să citească de la tastatură un număr natural \(n\) și apoi \(n\) numere întregi, pe care să le salveze într-un vector alocat dinamic. Îl puteți crea scriind \texttt{int* vector = new int[n];} după ce l-ați citit pe \(n\).
+
+    Sortați vectorul folosind funcția \href{https://en.cppreference.com/w/cpp/algorithm/sort}{\texttt{std::sort}} din biblioteca standard și apoi afișați rezultatul pe ecran. Va fi nevoie să includeți header-ul \texttt{algorithm}, i.e. \texttt{\#include <algorithm>}.
+    
+    Funcția \texttt{sort} primește doi parametrii: un pointer către primul element din vector, respectiv un pointer către elementul care ar veni fix după ultimul element din vector (nu e o problemă că acesta nu există). \\[0.5em]
+    Apelul ar trebui să fie: \texttt{sort(\&vector[0], \&vector[n]);}
+
+    La final, eliberați memoria alocată pentru vector prin \texttt{delete[] vector;} (trebuie să folosiți \texttt{delete[]}, nu doar \texttt{delete} simplu, pentru că este vorba de un întreg vector de elemente).
+
+    \textbf{Referințe utile:} \href{https://cplusplus.com/doc/tutorial/dynamic/}{alocarea dinamică de memorie în C++}, \href{https://www.geeksforgeeks.org/sort-c-stl/}{cum se utilizează \texttt{std::sort}}.
+
+    \item Definiți o nouă structură \texttt{Complex} (folosiți cuvântul cheie \texttt{struct}), care să rețină \textbf{partea reală} și \textbf{partea imaginară} a unui număr complex (numere reale stocate ca \texttt{double}).
+
+    \textbf{Referințe utile:} \href{https://cplusplus.com/doc/tutorial/structures/}{cum se declară o structură în C++}.
+
+    Implementați următoarele funcționalități pentru aceasta:
+    \begin{itemize}
+        \item Un constructor fără parametrii, care să instanțieze numărul complex \(0\).
+
+        \textbf{Referințe utile:} \href{https://en.cppreference.com/w/cpp/language/constructor}{constructori}.
+
+        \item Un constructor care primește ca parametrii partea reală și partea imaginară a unui număr complex și le salvează în variabilele membru corespunzătoare. Folosiți o \href{https://www.educative.io/answers/what-are-initializer-lists-in-cpp}{listă de inițializare} în constructor pentru a face acest lucru.
+
+        \textbf{Observație:} în acest caz, nu este nevoie să folosim liste de inițializare. Dar este bine să vă familiarizați cu sintaxa lor, deoarece este singura posibilitate pentru a inițializa variabile membru care sunt \texttt{const}, care sunt referințe sau care nu au un constructor fără parametru (e.g. dacă am fi avut în structura noastră o variabilă membru de tip \texttt{ifstream}).
+
+        \textbf{Referințe utile:} \href{https://www.educative.io/answers/what-are-initializer-lists-in-cpp}{ce sunt și cum se folosesc listele de inițializare în C++}.
+
+        \item O metodă \href{https://en.cppreference.com/w/cpp/language/static}{statică} \texttt{from\_polar} care primește ca parametrii modulul și argumentul (unghiul) unui număr complex, construiește și returnează un nou obiect de tip \texttt{Complex} cu partea reală și partea imaginară corespunzătoare.
+
+        Antetul acesteia ar trebui să fie: \\[0.5em]
+        \texttt{static Complex from\_polar(double modulus, double angle)}
+
+        Iar ulterior o puteți apela în programul principal folosind sintaxa: \\[0.5em]
+        \texttt{Complex z = Complex::from\_polar(2, 0.5);}
+
+        Reamintesc că un număr complex \(z\) se poate scrie în mod echivalent ca
+        \[
+            z = x + i y = r (\cos \theta + i \sin \theta)        
+        \]
+        unde \(x\) este partea reală a numărului complex, \(y\) este partea lui imaginară, \(r\) este modulul numărului complex și \(\theta\) este argumentul acestuia.
+
+        \textbf{Observație:} această metodă este un exemplu al pattern-ului \href{https://stackify.com/static-factory-methods/}{static factory method}. Deja avem un constructor pentru clasă cu signatura \\[0.3em]
+        \null \qquad \qquad \texttt{Complex(double, double)} \\[0.3em]
+        așa că nu am fi putut defini încă unul care să primească doi parametri de tip \texttt{double}. \textit{Static factories} ne permit să avem niște constructori „cu nume”.
+
+        \textbf{Referințe utile:} \href{https://www.tutorialspoint.com/cplusplus/cpp_static_members.htm}{variabile membru și metode statice}, \href{https://en.cppreference.com/w/cpp/header/cmath}{\texttt{<cmath>}}.
+
+        \item Supraîncărcați operatorul \texttt{<<} pentru a permite afișarea unui număr complex, respectiv \texttt{>>} pentru a permite citirea de la tastatură a unui număr complex.
+
+        Puteți găsi un exemplu de cum să faceți acest lucru \href{https://www.geeksforgeeks.org/overloading-stream-insertion-operators-c/}{aici}. Antetul acestor funcții ar trebui să fie:
+        \begin{lstlisting}
+ostream& operator<<(ostream& out, const Complex& c);
+istream& operator>>(istream& in, Complex& c);
+        \end{lstlisting}
+
+        În cazul operatorului de afișare, este bine să primim obiectul de tip \texttt{Complex} printr-o referință constantă ca să evităm copierea lui și în același timp să nu-l modificăm din greșeală. În cazul operatorului de citire, trebuie să primiți obiectul prin referință ca să puteți să puteți actualiza datele din el.
+
+        Operatorii ar putea fi definiți să returneze \texttt{void} în loc de \texttt{ostream\&} (respectiv \texttt{istream\&}), dar atunci nu am mai putea înlănțui operațiile de citire/afișare (e.g. nu am putea scrie \texttt{cin >> a >> b >> c}).
+        
+        După ce ați rezolvat acest subpunct, în programul principal ar trebui să puteți folosi operatorii ca în următorul exemplu:
+        \begin{lstlisting}
+Complex z;
+cin >> z;
+cout << z << '\n';
+        \end{lstlisting}
+
+        \textbf{Observație:} operatorii de citire/afișare pot fi supraîncărcați doar ca funcții în afara structurii/clasei; nu pot fi metode, deoarece vrem ca primul lor parametru să fie de tipul \texttt{istream\&}/\texttt{ostream\&}, nu obiectul implicit de tip \texttt{Complex} pe care îl primesc toate metodele.
+
+        \textbf{Referințe utile:} \href{https://www.geeksforgeeks.org/overloading-stream-insertion-operators-c/}{supraîncărcarea operatorilor \texttt{<<}/\texttt{>>} în C++} (nu o să aveți nevoie de modificatorul \texttt{friend}, deoarece în acest caz datele membru sunt publice).
+
+        \item Supraîncărcați operatorii \texttt{+}, \texttt{-}, \texttt{*}, respectiv \texttt{/}, ca să puteți aduna, scădea, înmulți și împărți numere complexe.
+
+        Aceste funcții nu ar trebui să modifice numerele complexe pe care le primesc ca parametri, ci ar trebui să returneze niște obiecte noi.
+
+        \textbf{Observație:} acești operatori îi puteți defini fie ca metode, caz în care vor primi un singur parametru de tip \texttt{Complex} (deoarece au acces deja la obiectul implicit), sau ca funcții libere, caz în care trebuie să primească doi parametrii de tip \texttt{Complex}.
+
+        \textbf{Referințe utile:} \href{https://www.geeksforgeeks.org/operator-overloading-c/}{supraîncărcarea operatorilor în C++}.
+
+        \item Supraîncărcați operatorii \texttt{==} și \texttt{!=} ca să puteți compara dacă două numere complexe sunt egale sau nu.
+
+        Aceste funcții ar trebui să aibă un parametru de tip \texttt{Complex} (dacă sunt definite ca metode) sau doi parametri de tip \texttt{Complex} (dacă sunt definite ca funcții libere) și să returneze o valoare de tip \texttt{bool} (\texttt{true} sau \texttt{false}).
+
+        \textbf{Observație:} dacă vreți să afișați rezultatul unei comparații, va trebui să scrieți \texttt{cout << (z1 == z2)}; este obligatoriu să puneți paranteze, din cauza ordinii de evaluare a operatorilor în C++.
+
+        \textbf{Referințe utile:} \href{https://en.cppreference.com/w/cpp/language/operator_comparison}{operatori de comparație}, \href{https://en.cppreference.com/w/cpp/language/operator_precedence}{precedența operatorilor}.
+    \end{itemize}
+
+    Scrieți subprogramul \texttt{main} corespunzător care să apeleze/testeze fiecare dintre metodele implementate.
+
+    \item Modificați structura definită la exercițiul anterior astfel încât să respecte \emph{principiul encapsulării} (variabilele membru să fie private).
+    
+    Lăsați toate celelalte metode să fie publice. S-ar putea să fie nevoie să declarați cu modificatorul \texttt{friend} operatorii pe care i-ați supraîncărcat, ca să nu aveți erori de compilare.
+
+    Adăugați metode de tip getter și setter pentru partea reală, respectiv partea imaginară a numărului complex.
+
+    \textbf{Referințe utile:} 
+    \href{https://www.tutorialspoint.com/cplusplus/cpp_class_access_modifiers.htm}{modificatori de acces}, \href{https://www.geeksforgeeks.org/friend-class-function-cpp/}{funcții/clase „prieten” (modificatorul \texttt{friend})}, \href{https://www.w3schools.com/cpp/cpp_encapsulation.asp}{exemplu de getter/setter pentru o variabilă membru privată}.
+
+    \item Considerăm structura \texttt{Achizitie}, definită în felul următor:
+    \begin{lstlisting}
+struct Achizitie {
+    int id;
+    double valoare;
+};
+    \end{lstlisting}
+
+    Definiți o altă structură \texttt{ReferintaAchizitie}, care să aibă ca date membru:
+    \begin{itemize}
+        \item un număr întreg constant, \texttt{const int id};
+        \item o referință la o achiziție, \texttt{Achizitie\& achizitie};
+    \end{itemize}
+    Puteți crea un obiect din această structură folosind constructorul fără parametrii?
+
+    Definiți un constructor pentru această structură care să primească ca parametru un obiect de tip \texttt{Achizitie\&}. Va trebui să folosiți o \href{https://www.geeksforgeeks.org/when-do-we-use-initializer-list-in-c/}{listă de inițializare} ca să inițializați datele membru.
+
+    \textbf{Referințe utile:} \href{https://www.geeksforgeeks.org/when-do-we-use-initializer-list-in-c/}{liste de inițializare în C++}, \href{https://www.tutorialspoint.com/how-to-initialize-const-member-variable-in-a-cplusplus-class}{inițializarea datelor membru constante}, \href{https://stackoverflow.com/a/1701456/5723188}{inițializarea datelor membru de tip referință}.
+
+    \item În limbajul C, pentru a scrie un număr într-un fișier ar trebui să folosim următorul cod:
+    \begin{lstlisting}
+int numar = 1234;
+FILE* f = fopen("fisier.txt", "w");
+fprintf(f, "%d", numar);
+fclose(f);
+    \end{lstlisting}
+    Observați că la final trebuie să apelăm \texttt{fclose} pentru a ne asigura că fișierul este salvat și închis cum trebuie. Dacă uităm să facem acest lucru, pot apărea bug-uri greu de diagnosticat.
+
+    Veți crea o clasă \texttt{MyFile} care să gestioneze o variabilă de tipul \href{https://en.cppreference.com/w/cpp/io/c/FILE}{\texttt{FILE*}}. Începeți prin a importa antetul \href{https://en.cppreference.com/w/cpp/header/cstdio}{\texttt{<cstdio>}}, în care se află funcțiile menționate mai sus. Implementați:
+    \begin{itemize}
+        \item Un constructor care primește ca parametru un șir de caractere \texttt{const char nume\_fisier[]}, reprezentând numele fișierului care va fi deschis. Acest constructor va folosi funcția \texttt{fopen} pentru a deschide fișierul indicat în modul de scriere și va salva pointerul returnat.
+
+        \textbf{Referințe utile:} \href{https://en.cppreference.com/w/cpp/language/constructor}{constructor cu parametri}, \href{https://en.cppreference.com/w/cpp/io/c/fopen}{\texttt{fopen}}.
+
+        \item Un destructor care apelează automat \texttt{fclose}.
+
+        \textbf{Referințe utile:} \href{https://en.cppreference.com/w/cpp/language/destructor}{destructor}, \href{https://en.cppreference.com/w/cpp/io/c/fclose}{\texttt{fclose}}.
+
+        \item O metodă \texttt{write} care primește ca parametru un număr întreg \texttt{numar} și îl scrie în fișier, lăsând un rând nou după, prin apelul \texttt{fprintf(f, "\%d\textbackslash{}n", numar);} (unde \texttt{f} este numele variabilei de tip \texttt{FILE*} din clasa voastră).
+
+        \textbf{Referințe utile:} \href{https://en.cppreference.com/w/c/io/fprintf}{\texttt{fprintf}}.
+    \end{itemize}
+
+    Creați o instanță a clasei \texttt{MyFile} în subprogramul principal și încercați să o folosiți ca să scrieți câteva valori într-un fișier.
+
+    Acest exercițiu este un exemplu foarte bun pentru utilitatea practică a constructorilor/destructorilor; vedeți și principiul \href{https://en.cppreference.com/w/cpp/language/raii}{\textit{Resource Acquisition Is Initialization}}.
+
+    \item Încercați să creați o copie a unei variabile de tip \texttt{MyFile} (clasa implementată la exercițiul anterior), de exemplu: \texttt{MyFile f("fisier.txt"); MyFile g(f);}
+
+    Ce se întâmplă când se termină blocul în care sunt definite variabilele? Primiți o eroare?
+    
+    Constructorul de copiere generat implicit de compilator va copia variabila de tip \texttt{FILE*} în noua instanță a clasei. Când se rulează destructorii pentru ambele obiecte de tip \texttt{MyFile}, se va apela de două ori \texttt{fclose} pentru același fișier.
+
+    Există moduri prin care putem elimina acest bug:
+    \begin{itemize}
+        \item Definim constructorul de copiere, dar îl facem privat:
+        \begin{lstlisting}
+private:
+    MyFile(const MyFile&) {
+        // nu facem nimic aici
+    }
+        \end{lstlisting}
+        Asta va preveni copierea unui obiect de tip \texttt{MyFile} în afara clasei, dar în interiorul clasei încă există riscul să facem neintenționat acest lucru.
+
+        \item (C++11) Folosim sintaxa „\texttt{= delete}” pentru a-i indica compilatorului că nu vrem să se genereze automat un constructor de copiere.
+        \begin{lstlisting}
+    MyFile(const MyFile&) = delete;
+        \end{lstlisting}
+    \end{itemize}
+
+    Implementați o soluție asemănătoare și pentru operatorul \texttt{=}, pentru a preveni atribuirile de tipul \texttt{f = g;} pentru variabile de tip \texttt{MyFile} (acestea ar duce la același bug). Puteți fie să-l faceți privat, fie să folosiți sintaxa
+    \begin{lstlisting}
+    void operator=(const MyFile&) = delete;
+    \end{lstlisting}
+
+    \textbf{Referințe utile:} \href{https://stackoverflow.com/a/33776856/5723188}{ștergerea constructorilor de copiere și a operatorului \texttt{=}}.
+
+    \item Nu vrem să permitem crearea unei copii a unui obiect de tipul \texttt{MyFile}, dar în unele cazuri ar fi util să putem transfera resursa deținută de el (variabila de tip \texttt{FILE*}) într-un alt obiect (de exemplu, ca să putem gestiona un vector de fișiere).
+
+    În C++11, acest lucru se poate face definind constructorul/operatorul de mutare:
+    \begin{lstlisting}
+MyFile(MyFile&& other);
+void operator=(MyFile&& other);
+\end{lstlisting}
+    Aici apare un nou tip de referință (\emph{\texttt{rvalue} reference}), care indică în fiecare caz că parametrul \texttt{other} a fost „preluat” de compilator și „mutat” în aceste funcții.
+
+    În cazul clasei noastre, fiecare dintre aceste funcții ar trebui să ia pointerul de tip \texttt{FILE*} din obiectul primit ca parametru, lăsându-l \texttt{NULL}/\texttt{nullptr} în urmă. Operatorul \texttt{=} ar trebui în plus să apeleze \texttt{fclose} pe pointerul pe care îl gestiona deja, dacă e cazul.
+
+    Va trebui să actualizați destructorul și metoda de afișare din \texttt{MyFile} ca să nu facă nimic în cazul în care variabila membru de tip \texttt{FILE*} este nulă.
+
+    Pentru a utiliza funcțiile nou-definite, putem folosi \href{https://en.cppreference.com/w/cpp/utility/move}{\texttt{std::move}} din biblioteca \texttt{<utility>}. Exemplu de utilizare:
+    \begin{lstlisting}
+MyFile file1("..."), file2("...");
+MyFile file3(move(file1));
+file1 = move(file2);
+    \end{lstlisting}
+    \texttt{file3} ar trebui să scrie acum în fișierul deschis inițial de \texttt{file1}, \texttt{file1} ar trebui să scrie în fișierul deschis inițial de \texttt{file2}, iar \texttt{file2} ar trebui să nu scrie în niciun fișier (ar trebui să aibă nul pointerul la \texttt{FILE}).
+
+    \textbf{Referințe utile:} \href{https://itnext.io/move-semantics-and-rvalue-references-modern-c-fundamentals-cbbe38760c05}{move semantics and rvalue references}, \href{https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2027.html}{rvalue references}.
+
+    \item Definiți o clasă \texttt{IntVector} care să rețină un vector de numere întregi, alocat dinamic. Clasa ar trebui să aibă două variabile membru:
+    \begin{itemize}
+        \item un număr întreg \texttt{int size}, reprezentând lungimea actuală a vectorului (cât de mare este zona de memorie indicată de \texttt{data});
+        \item un pointer \texttt{int* data}, care reține vectorul de numere întregi, alocat dinamic (reține adresa returnată de \texttt{new []}).
+    \end{itemize}
+
+    Implementați următoarele funcționalități:
+    \begin{itemize}
+        \item Un constructor fără parametrii care să inițializeze pointer-ul \texttt{data} cu valoarea \texttt{NULL} sau (dacă folosiți C++11) \texttt{nullptr}, și să seteze \texttt{size} să fie 0.
+
+        \item Un constructor care permite crearea unui vector care constă din numărul întreg \texttt{x}, de \texttt{k} ori. Constructorul va avea ca parametrii \texttt{int k} și \texttt{int x}, în această ordine.
+        
+        Al doilea parametru ar trebui să aibă \href{https://en.cppreference.com/w/cpp/language/default_arguments}{valoarea implicită} 0.
+
+        Constructorul va aloca dinamic memoria necesară pentru stocarea a \texttt{k} numere întregi și va seta toate elementele să aibă valoarea \texttt{x}.
+
+        \textbf{Referințe utile:} \href{https://cplusplus.com/doc/tutorial/dynamic/}{alocarea dinamică de memorie în C++}, \href{https://www.geeksforgeeks.org/default-arguments-c/}{setarea valorilor implicite pentru parametrii în C++}.
+
+        \item Un destructor care dezalocă zona de memorie indicată de pointerul \texttt{data}, dacă acesta nu este \texttt{NULL}/\texttt{nullptr}.
+        
+        \textbf{Referințe utile:} \href{https://en.cppreference.com/w/cpp/language/destructor}{destructor}.
+
+        \item Un constructor de copiere care primește o referință constantă la un alt obiect din clasa \texttt{IntVector}, își alocă o nouă zonă de memorie (de aceeași lungime cu cea a vectorului primit) și copiază în ea valorile din vectorul primit.
+
+        Antetul acestuia ar trebui să fie: \\[0.5em]
+        \texttt{IntVector(const IntVector\& v)}
+
+        \textbf{Observație:} este obligatoriu să primim vectorul vechi prin referință (constantă). Dacă l-am primi prin valoare, la apel compilatorul ar folosi implicit constructorul de copiere, care apoi s-ar apela recursiv la infinit pe el însuși.
+
+        \textbf{Referințe utile:} \href{https://www.geeksforgeeks.org/copy-constructor-in-cpp/}{constructorul de copiere în C++}.
+
+        \item Supraîncărcați operatorul \texttt{=} în așa fel încât să permită asignarea prin copiere a unui vector în alt vector. 
+        
+        Acest operator ar trebui să copieze datele din vectorul primit ca parametru (la fel ca și constructorul de copiere), doar că mai întâi ar trebui să dezaloce memoria deținută de vectorul destinație (dacă este cazul, dacă acesta nu este vid).
+
+        Antetul operatorului \texttt{=} ar trebui să fie:\\[0.5em]
+        \texttt{IntVector\& operator=(const IntVector\& v)}
+
+        Primim prin referință constantă parametrul ca să evităm crearea unei copii în plus a acestuia și pentru a nu-l modifica din greșeală. Mai mult, la final ar trebui să returnăm o referință la obiectul implicit (i.e. \texttt{return *this}), ca să permitem utilizarea sintaxei de atribuire multiplă (e.g. \texttt{v1 = v2 = v3}).
+    
+        \textbf{Referințe utile:} \href{https://www.geeksforgeeks.org/cpp-assignment-operator-overloading/}{supraîncărcarea operatorului de atribuire/copiere}.
+
+        \item[(*)] Definiți un constructor de mutare și supraîncărcați operatorul \texttt{=} de mutare ca să permiteți mutarea memoriei deținute de un vector într-un alt vector. Vectorul destinație ar trebui să primească lungimea și pointerul de la vectorul sursă, care va rămâne gol (va avea \texttt{size == 0} și \texttt{data == nullptr}).
+
+        \item Supraîncărcați operatorul \texttt{<<} ca să permiteți afișarea unui vector de numere întregi pe ecran (se vor afișa elementele acestuia, toate pe același rând, separate printr-un spațiu).
+
+        \item Supraîncărcați operatorul \texttt{>>} ca să permiteți citirea unui vector de numere întregi dintr-un \texttt{istream}.
+        
+        Operatorul va citi mai întâi \(n\), numărul de elemente care urmează să fie citite, iar apoi cele \(n\) numere întregi.
+
+        Dacă vectorul primit ca parametru nu este gol, va trebui să eliberați mai întâi memoria reținută de el, iar apoi să-i alocați dinamic un array de dimensiune \(n\) în care să rețineți valorile citite.
+        
+        \item Definiți o metodă care să permită adăugarea unui nou element la sfârșitul vectorului (modificați vectorul actual, nu creați unul nou).
+        
+        Va trebui să alocați dinamic o nouă zonă de memorie de dimensiune suficientă, să copiați vechile elemente în ea, să adăugați noul element la finalul ei și apoi să eliberați memoria pentru vechiul tablou alocat dinamic (dacă este cazul).
+    \end{itemize}
+
+    \item Alocați dinamic un vector de obiecte de tip \texttt{IntVector} (i.e. un vector de vectori). Puteți face acest lucru folosind sintaxa \\[0.5em]
+    \texttt{IntVector* vv = new IntVector[10];}
+
+    Încercați să vedeți cum/dacă au fost inițializați acești vectori (inspectați-i în debugger, sau afișați lungimile lor). Ce constructor a fost folosit?
+
+    De asemenea, observați că atunci când apelați \texttt{delete[]} pe acest vector de obiecte, compilatorul apelează automat destructorul pentru fiecare obiect (puteți confirma acest lucru punând un \textit{breakpoint} în destructor și rulând codul cu un debugger, sau afișând un mesaj în destructor).
+
+    \textbf{Referințe utile:} \href{https://stackoverflow.com/a/3575509/5723188}{cum inițializează \texttt{new[]} obiectele alocate}, \href{https://stackoverflow.com/a/17344873/5723188}{\texttt{delete[]} apelează destructorul pentru fiecare obiect}.
+
+    \item Ce se întâmplă dacă încercăm să folosim operatorul \texttt{=} de copiere, definit pentru clasa \texttt{IntVector}, în cazul în care obiectul destinație și obiectul sursă sunt același (de exemplu, dacă am scrie \texttt{v = v})?
+    
+    Tratați și această posibilitate în implementarea voastră. Verificați dacă pointerul \texttt{this} este egal cu pointerul \texttt{\&v}; în acest caz, nu este nevoie să alocați memorie sau să modificați datele membru.
+
+    \textbf{Referințe utile:} \href{https://www.geeksforgeeks.org/g-fact-38/}{tratarea cazului de \emph{self assignment}}.
+
+    \item Implementați o clasă \texttt{String}, care să rețină un șir de caractere alocat dinamic (i.e. un pointer la un tablou unidimensional de \texttt{char}, alocat dinamic).
+
+    Puteți alege să rețineți doar pointerul către zona de memorie alocată dinamic, sau să rețineți și lungimea actuală a șirului de caractere (pentru a nu fi nevoie să o determinați tot timpul folosind \texttt{strlen}).
+
+    \textbf{Observație:} dacă vreți să creați un fișier header separat în care să declarați clasa, nu-l denumiți \texttt{String.h} pentru că s-ar putea să intre în conflict cu fișierul \texttt{string.h} din biblioteca standard. Puteți să-l denumiți în schimb \texttt{String.hpp}, de exemplu.
+    
+    \textbf{Referințe utile:} \href{https://en.cppreference.com/w/cpp/language/types}{tipuri de date fundamentale}, \href{https://en.cppreference.com/w/cpp/language/pointer}{tipul de date pointer}, \href{https://en.cppreference.com/w/cpp/language/class}{cum se declară o clasă}, \href{https://en.cppreference.com/w/cpp/language/access}{specificatori de acces};
+
+    Implementați următoarele funcționalități:
+    \begin{itemize}
+        \item Crearea unui șir de caractere vid (acest lucru va fi indicat prin setarea pointer-ului intern la \texttt{NULL} / \texttt{nullptr}, ca să nu alocăm degeaba un vector de caractere de lungime 0);
+        
+        \textbf{Referințe utile:} \href{https://en.cppreference.com/w/cpp/language/constructor}{constructori}, \href{https://en.cppreference.com/w/cpp/types/NULL}{pointerul \texttt{NULL}}, \href{https://en.cppreference.com/w/cpp/language/nullptr}{\texttt{nullptr}}.
+
+        \item Crearea unui șir de caractere pornind de la un string literal (să putem scrie \texttt{String sir("Un sir de caractere");});
+
+        \textbf{Referințe utile:} \href{https://en.cppreference.com/w/cpp/language/constructor}{constructori cu parametri}, \href{https://en.cppreference.com/w/cpp/language/string_literal}{string literals}, \href{https://cplusplus.com/reference/new/operator\%20new[]/}{operatorul \texttt{new[]}}, \href{https://en.cppreference.com/w/cpp/string/byte/strlen}{\texttt{strlen}}, \href{https://en.cppreference.com/w/c/string/byte/strncpy}{\texttt{strncpy}};
+        
+        \item Eliberarea automată a memoriei alocate printr-un destructor;
+
+        \textbf{Referințe utile:} \href{https://www.geeksforgeeks.org/delete-in-c/}{operatorul \texttt{delete[]}};
+        
+        \item Copierea unui șir în alt șir; acest lucru ar trebui să se poată face atât prin constructorul de copiere, cât și prin operatorul \texttt{=}.
+
+        \textbf{Referințe utile:} \href{https://www.geeksforgeeks.org/copy-constructor-in-cpp/}{constructorul de copiere}, \href{https://en.cppreference.com/w/cpp/language/copy_assignment}{operatorul de atribuire prin copiere}, \href{https://www.geeksforgeeks.org/copy-constructor-vs-assignment-operator-in-c/}{constructorul de copiere versus operatorul de atribuire};
+        
+        \item[(*)] „Mutarea” unui șir în alt șir, noul șir preluând memoria gestionată de cel vechi, lăsând vid șirul sursă;
+
+        Constructorul de mutare ar trebui să aibă signatura:\\[0.5em]
+        \texttt{String(String\&\& other)}
+    
+        Iar operatorul \texttt{=} de mutare:\\[0.5em]
+        \texttt{String\& operator=(String\&\& other)}
+
+        \textbf{Referințe utile:} \href{https://en.cppreference.com/w/cpp/language/move_constructor}{move constructor};
+
+        \item Adăugarea unui caracter la șir;
+
+        \item Concatenarea a două șiruri;
+
+        \item Găsirea unui subșir într-un șir dat.
+
+        \textbf{Referințe utile:} \href{https://en.cppreference.com/w/cpp/string/byte/strstr}{\texttt{strstr}}.
+    \end{itemize}
+
+    Scrieți și codul aferent în \texttt{int main()} care să apeleze și să testeze funcționalitățile de mai sus. 
+
+    \item Implementați o clasă \texttt{IntList}, care să rețină o listă simplu înlănțuită de numere întregi (de tip \texttt{int}), cu noduri alocate dinamic.
+    
+    Această clasă va avea definită în interiorul ei o clasă privată \texttt{Node}, care reprezintă un nod din listă. Fiecare nod va reține un număr întreg (valoarea acelui element din listă) și un pointer la următorul nod.
+
+    \textbf{Referințe utile:} \href{https://en.cppreference.com/w/cpp/language/nested_types}{nested class};
+
+    În clasa \texttt{IntList} este suficient să stocați un pointer la primul nod din listă pentru a o putea reține/accesa. Dacă doriți, puteți păstra și un pointer la ultimul nod din listă, pentru a adăuga mai ușor elemente la finalul ei.
+
+    Implementați următoarele funcționalități:
+    \begin{itemize}
+        \item Crearea unei liste vide (pointerii vor fi inițializați cu \texttt{NULL} / \texttt{nullptr});
+        
+        \item Adăugarea unui nou număr la începutul listei (metoda ar trebui să funcționeze atât cu o listă inițial vidă, cât și cu una care are deja elemente în ea);
+        
+        \item Adăugarea unui nou număr la finalul listei (metoda ar trebui să funcționeze atât cu o listă inițial vidă, cât și cu una care are deja elemente în ea);
+        
+        \item Eliberarea automată a memorie alocate;
+
+        \textbf{Indicație:} implementați destructorul pentru clasa \texttt{Node}, astfel încât să dea \texttt{delete} la următorul nod din listă (dacă acesta nu este nul). În clasa \texttt{IntList}, va fi suficient să dați \texttt{delete} doar la primul nod, iar destructorii se vor apela recursiv, ștergând toată lista.
+        
+        \item Crearea unei liste pornind de la un vector de numere întregi existent (i.e. să putem scrie 
+        \texttt{const int vector[] = \{ 1, 2, 3, 4 \};}\\
+        \texttt{IntList lista(4, vector);});
+
+        \item Copierea unei liste în altă listă (folosind constructorul de copiere, respectiv supraîncărcând operatorul \texttt{=});
+        
+        \item[(*)] Mutarea unei liste în altă listă, lăsând vidă lista inițială;
+    
+        \item Concatenarea a două liste (cele două liste primite ca parametru trebuie să rămână neschimbate);
+
+        \item Accesarea elementului de pe poziția \(i\) (se va returna valoarea acestuia);
+
+        \item Setarea valorii elementului de pe poziția \(i\);
+
+        \item Găsirea în listă a unui număr dat (se va returna dacă este sau nu prezent).
+    \end{itemize}
+\end{enumerate}

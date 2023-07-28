@@ -1,0 +1,261 @@
+\section*{Exerciții -- Partea a 2-a}
+
+\begin{enumerate}
+    \item În prima parte a laboratorului, ați avut de implementat o clasă \texttt{String} pentru gestionarea facilă a șirurilor de caractere alocate dinamic. Biblioteca standard C++ oferă clasa \texttt{std::string} în acest scop, care include mare parte din funcționalitățile pe care le-ați implementat și încă câteva în plus.
+
+    \textbf{Referințe utile:} \href{https://cplusplus.com/reference/string/string/}{referință pentru tipul de date \texttt{std::string}}, \href{https://www.geeksforgeeks.org/stdstring-class-in-c/}{utilizarea clasei \texttt{std::string} în C++}.
+
+    Scopul acestui exercițiu este să vă familiarizeze cu utilizarea \texttt{string}. Dacă aveți nevoie să gestionați șiruri de caractere la colocviu, sau dacă ajungeți să lucrați pe C++, este mult mai convenabil și eficient să utilizați acest tip de date interoperabil oferit de limbaj.
+
+    \textbf{Observație:} pentru a putea folosi clasa \texttt{string} din biblioteca standard, va trebui să includeți \href{https://en.cppreference.com/w/cpp/header/string}{fișierul header \texttt{<string>}}.
+
+    \begin{itemize}
+        \item Creați o nouă variabilă de tip \texttt{string}, inițializată cu constructorul fără parametrii; aceasta va reține șirul vid.
+
+        \textbf{Referințe utile:} \href{https://cplusplus.com/reference/string/string/string/}{constructorii clasei \texttt{string}}.
+
+        \item Creați un nou \texttt{string} inițializat cu valoarea unui \textit{string literal} (e.g. \texttt{string sir = "acesta este un exemplu"}).
+
+        \textbf{Observație:} \emph{nu} este nevoie să ștergeți explicit memoria alocată pentru un \texttt{string}; clasa are definit un destructor care se ocupă de acest lucru.
+
+        \item Copiați un \texttt{string} într-un alt \texttt{string} folosind constructorul de copiere, respectiv operatorul \texttt{=}.
+
+        \item Ștergeți conținutul unui \texttt{string} folosind metoda \texttt{clear}. Verificați că șirul este vid după apelarea acesteia folosind metoda \texttt{empty}.
+
+        \textbf{Referințe utile:} \href{https://cplusplus.com/reference/string/string/clear/}{metoda \texttt{clear}}, \href{https://cplusplus.com/reference/string/string/empty/}{metoda \texttt{empty}}.
+
+        \item Afișați în consolă șirurile create până acum folosind operatorul \texttt{<<}, care este deja supraîncărcat de către biblioteca standard pentru clasa \texttt{string}.
+
+        \textbf{Referințe utile:} \href{https://cplusplus.com/reference/string/string/operator\%3C\%3C/}{operatorul \texttt{<<} pentru \texttt{std::string}}.
+
+        \item Citiți un \texttt{string} de la tastatură folosind operatorul \texttt{>>} (care este deja supraîncărcat de către biblioteca standard). Acesta permite citirea unui șir de caractere doar până la primul spațiu sau rând nou (până la primul caracter \textit{whitespace}).
+
+        \textbf{Observație:} operatorul de citire \texttt{>>} pentru \texttt{string} alocă automat câtă memorie este necesară pentru a reține șirul citit, suprascriind orice valoare avea înainte \texttt{string}-ul.
+
+        \textbf{Referințe utile:} \href{https://cplusplus.com/reference/string/string/operator\%3E\%3E/}{operatorul \texttt{>>} pentru \texttt{std::string}}.
+
+        \item Citiți un întreg rând de la tastatură într-un \texttt{string} folosind funcția liberă \texttt{getline} din biblioteca standard.
+
+        \textbf{Observație:} s-ar putea să fie nevoie să apelați \texttt{cin >> ws} (ca să consumați caracterul de rând nou rămas pe linia precedentă) înainte de a apela \texttt{getline}, dacă anterior ați citit un \texttt{string} cu operatorul \texttt{>>}.
+
+        \textbf{Observație:} funcția \texttt{getline} pentru \texttt{string} alocă automat câtă memorie este necesară pentru a reține rândul citit, suprascriind orice valoare avea înainte \texttt{string}-ul.
+        
+        \textbf{Referințe utile:} \href{https://cplusplus.com/reference/istream/ws/}{manipulatorul \texttt{std::ws}}, \href{https://cplusplus.com/reference/string/string/getline/}{funcția \texttt{std::getline} (cu parametru \texttt{string})}.
+
+        \item Determinați lungimea unui șir de caractere citit de voi de la tastatură folosind metoda \texttt{length}. Alternativ, puteți folosi metoda \texttt{size} (sunt sinonime).
+
+        \textbf{Referințe utile:} \href{https://cplusplus.com/reference/string/string/length/}{metoda \texttt{length}}, \href{https://cplusplus.com/reference/string/string/size/}{metoda \texttt{size}}.
+
+        \item Creați un șir de caractere nevid și accesați caracterul de pe poziția \(i\) (aleasă de voi) folosind operatorul de indexare \texttt{[]} (care este deja supraîncărcat de către biblioteca standard).
+        
+        Ce se întâmplă dacă încercați să accesați un caracter din afara șirului?
+
+        \textbf{Referințe utile:} \href{https://cplusplus.com/reference/string/string/operator[]/}{operatorul \texttt{[]}}.
+
+        \item Faceți același lucru ca la subpunctul precedent, dar de data aceasta folosiți metoda \texttt{at} ca să accesați caracterul de pe poziția \(i\).
+        
+        Ce se întâmplă de data aceasta dacă încercați să accesați un caracter din afara șirului?
+
+        \textbf{Referințe utile:} \href{https://cplusplus.com/reference/string/string/at/}{metoda \texttt{at}}.
+
+        \item Clasele container din biblioteca standard C++ permit în general iterarea prin elemente folosind \href{https://en.wikipedia.org/wiki/Iterator_pattern}{\emph{iterator pattern}} (i.e. o clasă ajutătoare care reține elementul la care ne aflăm, permite accesarea/modificarea acestuia și trecerea la elementul următor/anterior).
+
+        Pentru a itera prin toate caracterele unui \texttt{string}, puteți folosi o secvență de cod similară cu următoarea:
+        \begin{lstlisting}   
+for (string::iterator it = sir.begin();
+     it != sir.end();
+     ++it)
+{
+    char caracter = *it;
+    std::cout << caracter << std::endl;
+}
+        \end{lstlisting}
+
+        Alternativ, în C++11 se poate evita menționarea explicită a tipului de date al iteratorului folosind cuvântul cheie \texttt{auto}:
+        \begin{lstlisting}   
+for (auto it = sir.begin();
+     it != sir.end();
+     ++it)
+{
+    char caracter = *it;
+    std::cout << caracter << std::endl;
+}
+        \end{lstlisting}
+
+        Mai succint, tot începând cu C++11 puteți folosi un \href{https://learn.microsoft.com/en-us/cpp/cpp/range-based-for-statement-cpp?view=msvc-170}{\textit{range-for}}:
+        \begin{lstlisting}
+for (char caracter : sir) {
+    std::cout << caracter << std::endl;
+}
+        \end{lstlisting}
+        Dezavantajul este că în acest mod nu mai aveți la fel de mult control asupra iterării (de exemplu, nu puteți sări caractere).
+
+        \textbf{Referințe utile:} \href{https://www.geeksforgeeks.org/iterators-c-stl/}{utilizarea iteratorilor în biblioteca standard C++}, \href{https://cplusplus.com/reference/iterator/}{tipuri de iteratori}, \href{https://learn.microsoft.com/en-us/cpp/cpp/range-based-for-statement-cpp?view=msvc-170}{range-based \texttt{for} statement}.
+
+        \item Definiți un \texttt{string} inițializat cu un șir de caractere care reprezintă un număr întreg (e.g. \texttt{"123"}). Convertiți-l într-un \texttt{int} folosind funcția \texttt{std::stoi}.
+        
+        Faceți același lucru cu un șir de caractere care reprezintă un număr întreg \emph{reprezentat în binar} (e.g. \texttt{"10010"}) și convertiți-l într-un \texttt{int}, de data aceasta dând valoarea \texttt{2} pentru parametrul \texttt{base} al funcției \texttt{std::stoi} (pentru \texttt{"10010"}, ar trebui să obțineți numărul întreg \texttt{18}).
+
+        \textbf{Referințe utile:} \href{https://en.cppreference.com/w/cpp/string/basic_string/stol}{funcțiile \texttt{std::stoi}, \texttt{std::stol}, \texttt{std::stoll}}.
+
+        \item Citiți de la tastatură un enunț scris pe un singur rând (folosind funcția \texttt{std::getline}) și apoi un cuvânt (folosind operatorul \texttt{>>}). Folosiți metoda \texttt{find} a clasei \texttt{string} ca să vedeți dacă cuvântul respectiv se găsește în enunț, respectiv care este prima poziție pe care se găsește.
+
+        \textbf{Observație:} metoda \texttt{find} returnează un număr întreg fără semn, care pentru corectitudine ar trebui păstrat într-o variabilă de tipul \texttt{size\_t} (care pe majoritatea sistemelor va fi un alias pentru \texttt{unsigned long long} sau similar).
+
+        \textbf{Observație:} metoda \texttt{find} va returna constanta \texttt{std::string::npos} dacă nu a reușit să găsească subșirul respectiv în șirul de caractere pe care a fost apelată.
+
+        \textbf{Referințe utile:} \href{https://en.cppreference.com/w/cpp/string/basic_string/find}{metoda \texttt{find}}, \href{https://en.cppreference.com/w/cpp/string/basic_string/npos}{constanta \texttt{std::string::npos}}, \href{https://en.cppreference.com/w/cpp/types/size_t}{tipul de date \texttt{std::size\_t}}.
+    \end{itemize}
+
+    % TODO
+
+    \item În prima parte a laboratorului, ați avut de implementat o clasă \texttt{IntVector} care gestiona un vector de numere întregi, alocat dinamic. Ar fi un efort de mentenanță foarte mare pentru biblioteca standard să definească clase pentru fiecare tip de date în parte (ar veni \texttt{IntVector}, \texttt{ShortVector} etc.), codul din implementările lor ar fi foarte similar, iar acestea nu ar putea fi folosite oricum pentru a gestiona vectori de tipuri de date definite de dezvoltator.
+    
+    Soluția este ca biblioteca standard să furnizeze o clasă șablon (\textit{template class}), pe care o putem instanția cu orice tip de date vrem, fie el \textit{built-in} sau definit de noi\footnote{Cu mențiunea că acest tip de date trebuie să respecte anumite constrângeri, de exemplu să aibă un constructor fără parametri și constructor/operator \texttt{=} de copiere, toate accesibile public.}. Veți învăța cum funcționează precis și cum pot fi definite clasele/funcțiile șablon mai târziu, dar pentru început este suficient să știți că puteți crea o variabilă de tip vector ca în următoarele exemple:
+    \begin{lstlisting}
+std::vector<int> vector_de_intregi;
+std::vector<std::string> vector_de_siruri_de_caractere;
+std::vector<MyClass> vector_de_obiecte_din_clasa_mea;
+std::vector<std::vector<SomeClass*>>
+    vector_de_vectori_de_pointeri;
+    \end{lstlisting}
+    (puteți să nu mai puneți \texttt{std::} în față dacă aveți \texttt{using namespace std})
+
+    \textbf{Observație:} pentru a putea folosi clasa șablon \texttt{vector} din biblioteca standard, va trebui să includeți \href{https://en.cppreference.com/w/cpp/header/vector}{fișierul header \texttt{<vector>}}.
+
+    \begin{itemize}
+        \item Creați un vector gol de numere de tip \texttt{double}, folosind constructorul fără parametri.
+
+        \textbf{Referințe utile:} \href{https://cplusplus.com/reference/vector/vector/vector/}{constructorii clasei \texttt{vector}}.
+
+        \item Creați un vector de numere de tip \texttt{double}, care să conțină numărul \(2.5\) repetat de \(10\) ori (folosiți \emph{fill} constructorul clasei \texttt{vector}).
+
+        \item Creați un vector plecând de la un șir de numere \texttt{double} fixat de voi în cod (e.g. \texttt{\{ 2.5, 0, 3.1, -4.3, 1 \}}) (folosiți \emph{range} constructorul).
+
+        \item Copiați un vector creat de voi într-un alt vector de același tip. Observați că biblioteca standard definește constructorul de copiere și operatorul \texttt{=} pentru noi; aceștia alocă memorie pentru noul vector și copiază pe rând fiecare element.
+
+        \item Citiți un număr natural \(n\) de la tastatură, redimensionați vectorul ca să conțină \(n\) numere de tip \texttt{double} folosind metoda \texttt{resize}, iar apoi citiți fiecare număr în vector (folosiți operatorul \texttt{[]}, care este supraîncărcat pentru clasa \texttt{vector}).
+
+        \textbf{Referințe utile:} \href{https://cplusplus.com/reference/vector/vector/resize/}{metoda \texttt{resize}}, \href{https://cplusplus.com/reference/vector/vector/operator[]/}{operatorul \texttt{[]}}.
+
+        \item Parcurgeți și afișați elementele vectorului citit anterior, \emph{în ordine inversă}. Folosiți iteratori ca la exercițiul cu \texttt{string}, dar de data aceasta plecând de la \texttt{rbegin} și mergând până la \texttt{rend} (va trebui să declarați variabila din \texttt{for} ca \texttt{std::vector<double>::reverse\_iterator}, deoarece metodele \texttt{rbegin}/\texttt{rend} returnează un alt tip de clasă ajutătoare față de \texttt{begin}/\texttt{end}).
+
+        \textbf{Referințe utile:} \href{https://cplusplus.com/reference/iterator/reverse_iterator/}{\texttt{reverse\_iterator}}, \href{https://cplusplus.com/reference/vector/vector/rbegin/}{metoda \texttt{rbegin}}, \href{https://cplusplus.com/reference/vector/vector/rend/}{metoda \texttt{rend}}.
+
+        \item Adăugați un număr nou la final folosind metoda \texttt{push\_back} (aceasta va crește automat capacitatea alocată a vectorului, dacă este cazul, ca să încapă și elementul adăugat).
+
+        \textbf{Referințe utile:} \href{https://cplusplus.com/reference/vector/vector/push_back/}{metoda \texttt{push\_back}}.
+
+        \item Calculați media aritmetică a unui vector de numere de tip \texttt{double}. În acest scop, determinați la execuție câte elemente conține vectorul, prin metoda \texttt{size}.
+
+        \textbf{Referințe utile:} \href{https://cplusplus.com/reference/vector/vector/size/}{metoda \texttt{size}}.
+    \end{itemize}
+
+    % TODO: add an exercise for simple, dumb inheritance
+
+    \item În cadrul acestui exercițiu, vă veți familiariza cu utilizarea \textbf{moștenirii} și a \textbf{polimorfismului la execuție} pentru a schimba dinamic implementarea folosită pentru o metodă, în funcție de tipul obiectului pe care o apelați.
+    
+    Ați mai întâlnit deja acest comportament în momentul în care ați supraîncărcat operatorii \texttt{<<} și \texttt{>>}: primeați un parametru de tip \texttt{ostream\&}/\texttt{istream\&} și îl foloseați ca să afișați/citiți datele membre din clasa voastră. Ulterior, puteați apela acești operatori supraîncărcați cu niște instanțe concrete de stream-uri: \texttt{cout}/\texttt{cin}, \texttt{ofstream}/\texttt{ifstream} etc.
+
+    Începeți prin a defini o „interfață”\footnote{Dacă în C++ o \emph{interfață} este doar o clasă obișnuită căruia îi impunem anumite constrângeri, în limbaje ca Java sau C\# există \href{https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/interface}{un cuvânt cheie special} pentru definirea interfețelor.} (o clasă care nu are date membru, doar metode pur virtuale și destructorul virtual) numită \texttt{Shape}, care să reprezinte o figură geometrică. Această interfață va conține următoarele două metode publice:
+    \begin{lstlisting}
+virtual double compute_perimeter() const = 0;
+virtual double compute_area() const = 0;
+\end{lstlisting}
+
+    Definiți următoarele clase, care să implementeze (să \textbf{moștenească}) interfața de mai sus:
+    \begin{itemize}
+        \item Clasa \texttt{Triangle}, care reține baza și înălțimea unui triunghi.
+
+        \item Clasa \texttt{Rectangle}, care reține lățimea și lungimea unui dreptunghi.
+        
+        \item Clasa \texttt{Circle}, care reține raza unui cerc.
+    \end{itemize}
+
+    Definiți constructori pentru fiecare dintre aceste clase și suprascrieți metodele \texttt{compute\_perimeter} și \texttt{compute\_area} pentru acestea\footnote{\textbf{Atenție:} pentru a suprascrie metodele din clasa de bază, cele din clasele moștenitoare trebuie să aibă exact aceeași \textbf{signatură} (denumire, tip de date returnat, parametrii și modificatorul \texttt{const}, dacă e cazul).}, care vor calcula perimetrul, respectiv aria fiecărei figuri geometrice.
+
+    Definiți subprogramul \texttt{print\_shape\_size} în felul următor:
+\begin{lstlisting}
+void print_shape_size(Shape& shape)
+{
+    std::cout << "Figura geometrica are perimetrul " 
+        << shape.compute_perimeter()
+        << " si aria "
+        << shape.compute_area()
+        << std::endl;
+}
+\end{lstlisting}
+
+    În programul principal, definiți câte o variabilă de tip \texttt{Triangle}, \texttt{Rectangle}, respectiv \texttt{Circle}.
+
+    Apelați subprogramul \texttt{print\_shape\_size} pe rând cu fiecare dintre aceste variabile.
+
+    Aici avem un exemplu de \emph{polimorfism la execuție}: deși (formal) apelăm mereu aceleași metode (\texttt{compute\_perimeter} și \texttt{compute\_area}) pe același tip de date (parametrul de tip \texttt{Shape\&}), ajung să se execute funcții diferite.
+
+    \item Acest exercițiu vă arată cum putem gestiona \textbf{moștenirea în diamant} în C++.
+
+    Începeți prin a defini clasele de care vom avea nevoie:
+    \begin{itemize}
+        \item Definiți o clasă \texttt{Product}, care va reprezenta un produs dintr-un supermarket. Aceasta reține prețul de bază al unui produs (o variabilă membru \texttt{double price}, cu modificatorul de acces \texttt{protected}) și care are o metodă publică \emph{virtuală} denumită \texttt{get\_price}, care returnează direct prețul de bază.
+
+        \textbf{Observație:} această clasă ar trebui să aibă definit și destructorul ca fiind \texttt{virtual}, deoarece va trebui să alocăm dinamic și să ștergem obiecte din clasa \texttt{Product} și din clasele care o moștenesc, dar la care ne vom referi printr-un pointer la clasa de bază \texttt{Product}.
+
+        \item Definiți clasa \texttt{PerishableProduct}, care moștenește clasa \texttt{Product} și reprezintă un produs perisabil. Aceasta ar trebui să rețină o variabilă de tip \texttt{bool} care indică dacă produsul este aproape de data expirării sau nu. Adăugați și un setter pentru acest câmp. Clasa ar trebui să suprascrie metoda \texttt{get\_price}, ca să returneze prețul de bază redus cu 10\% dacă indicăm că produsul este aproape de data expirării.
+
+        \item Definiți clasa \texttt{ProductOnSale}, care moștenește clasa \texttt{Product} și reprezintă un produs la care s-a aplicat o reducere de preț configurabilă. Aceasta ar trebui să rețină o variabilă \texttt{double}, care este o reducere procentuală configurabilă, modificabilă printr-un setter. Clasa ar trebui să suprascrie metoda \texttt{get\_price}, ca să returneze prețul de bază redus cu reducerea procentuală stocată.
+        
+        \item Definiți clasa \texttt{PerishableProductOnSale}, care moștenește ambele clase de mai sus și le combină funcționalitățile (va calcula procentul total cu care trebuie redus prețul de bază și îl va aplica în \texttt{get\_price}).
+    \end{itemize}
+
+    Vom folosi clasele în felul următor în \texttt{main}:
+    \begin{itemize}
+        \item Creați un vector de obiecte de tip \texttt{Product} (sau derivate ale acestuia), alocate dinamic (i.e. un \texttt{vector<Product*>}).
+
+        \item Adăugați în acesta câte un obiect (alocat dinamic) din fiecare dintre clasele \texttt{Product}, \texttt{PerishableProduct}, \texttt{ProductOnSale} și \\
+        \texttt{PerishableProductOnSale}.
+
+        \item Scrieți un singur \texttt{for} care să parcurgă vectorul și să afișeze pentru fiecare produs prețul final calculat de metoda \texttt{get\_price}.
+
+        \item La final, nu uitați să ștergeți (să apelați \texttt{delete}) pentru fiecare dintre obiectele alocate dinamic din vector.
+    \end{itemize}
+
+    \item Definiți o clasă de tip \href{https://en.wikipedia.org/wiki/Mixin}{\emph{mixin}} denumită \texttt{\textbf{Labelable}} care să permită claselor care o moștenesc să fie „etichetate”. Cu alte cuvinte, această clasă ar trebui să aibă o dată membru privată denumită \texttt{label}, de tip \texttt{string}, care va reține „eticheta” obiectului. Implementați un \emph{getter} și un \emph{setter} pentru acest câmp, ca metode publice.
+
+    Această clasă nu are o utilitate de sine stătătoare (nu conține vreo logică în plus față de o simplă variabilă de tip \texttt{string}), dar oferă un mod facil de a adăuga funcționalitatea de „etichetare” la clasele noastre.
+
+    \textbf{Referințe utile:} \href{https://en.wikipedia.org/wiki/Mixin}{definiția conceptului de \emph{mixin}}, \href{https://stackoverflow.com/a/547714/5723188}{exemplu de cum se folosește pattern-ul \emph{mixin} în Python}.
+
+    \item Adăugați mixin-ul \texttt{Labelable} la clasele \texttt{Shape} și \texttt{Product} definite în exercițiile anterioare (folosind moștenirea multiplă). Încercați să setați și să afișați etichetele pentru obiecte de tip \texttt{Circle}, respectiv \texttt{PerishableProduct}.
+
+    \item Supraîncărcați operatorul de indexare \texttt{[]} pentru una dintre clasele pe care le-ați implementat la laboratoarele precedente (e.g. \texttt{IntVector}, \texttt{String}).
+    
+    Acesta ar trebui să permită \textbf{accesarea} valorii elementului de pe poziția \(i\), dar și \textbf{modificarea} acestuia (dacă obiectul nu este constant). Mai mult, ar trebui \textbf{să arunce o excepție} de tipul \href{https://en.cppreference.com/w/cpp/error/out_of_range}{\texttt{std::out\_of\_range}} dacă parametrul \(i\) este negativ sau mai mare decât lungimea containerului.
+
+    \textbf{Observație:} putem acomoda cele două situații supraîncărcând de două ori operatorul; o dată pentru când obiectul implicit este mutabil, o dată pentru când acesta este constant. Cele două antete ar trebui să fie (de exemplu, pentru \texttt{IntVector}):
+    \begin{lstlisting}
+int& operator[](int i);
+int operator[](int i) const;
+    \end{lstlisting}
+    În primul caz, returnăm un \texttt{int\&} ca să putem modifica elementul prin intermediul valorii returnate (să putem scrie, de exemplu, \texttt{v[i] = 3}). În al doilea caz, când vectorul de întregi este constant, putem la fel de bine să returnăm direct un \texttt{int}; nu obținem o performanță mai bună returnând prin referință.
+
+    \textbf{Referințe utile:} \href{https://www.geeksforgeeks.org/overloading-subscript-or-array-index-operator-in-c/}{supraîncărcarea operatorului de indexare}, \href{https://cplusplus.com/doc/tutorial/exceptions/}{aruncarea excepțiilor în C++}.
+
+    \item Implementați o clasă care să rețină de câte ori a fost instanțiată sau ștearsă pe parcursul execuției unui program.
+    
+    Puteți obține această funcționalitate prin definirea unei date membru statice, de tip întreg, care pornește de la \(0\) și pe care o veți incrementa de fiecare dată în constructor (în cel fără parametrii, dar și cel de copiere) și în operatorul \texttt{=}, respectiv pe care o veți decrementa în destructor.
+
+    Adăugați o metodă statică care să returneze valoarea curentă acestui contor, ca să-l puteți afișa.
+
+    \textbf{Referințe utile:} \href{https://www.tutorialspoint.com/cplusplus/cpp_static_members.htm}{membrii statici ai unei clase în C++}.
+
+    \item Implementați o clasă \href{https://refactoring.guru/design-patterns/singleton/cpp/example}{\emph{singleton}}, o clasă din care să poată exista o singură instanță pe toată durata de execuție a programului.
+
+    Puteți face acest lucru în doi pași:
+    \begin{itemize}
+        \item Marcați ca privat constructorul de inițializare al clasei, respectiv constructorul de copiere și operatorul \texttt{=} (astfel, clasa nu va putea fi instanțiată sau copiată de codul din afara ei).
+
+        \item Definiți o metodă statică care să permită obținerea unei referințe la singura instanță a clasei. Aceasta ar trebui să conțină o variabilă locală statică, de tipul clasei respective, pe care să o returneze prin referință.
+    \end{itemize}
+
+    \textbf{Referințe utile:} \href{https://refactoring.guru/design-patterns/singleton}{design pattern-ul singleton}, \href{https://www.geeksforgeeks.org/implementation-of-singleton-class-in-cpp/}{implementarea unei clase de tip singleton în C++}.
+\end{enumerate}

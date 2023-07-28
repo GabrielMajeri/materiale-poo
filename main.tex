@@ -1,0 +1,101 @@
+\documentclass[a4paper, 12pt]{article}
+
+% Support for importing images
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
+% Support for multiple languages
+\usepackage{polyglossia}
+\setdefaultlanguage{romanian}
+
+% Replace indents with vertical spacing
+\usepackage[parfill]{parskip}
+
+% Support for interactive hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    urlcolor=blue,
+    linkcolor=cyan
+}
+
+% More advanced lists
+\usepackage{enumitem}
+
+% Support for commenting out blocks of TeX code
+\usepackage{verbatim}
+
+% Expanded font selection support
+\usepackage{fontspec}
+
+% Encode mathematical symbols using Unicode characters
+\usepackage{unicode-math}
+
+% Change the default font to a nicer one
+\setmainfont{TeX Gyre Termes}
+\setmathfont{TeX Gyre Termes Math}
+
+% Support for margin notes
+\usepackage{marginnote}
+
+% Prevent footnotes from breaking across pages
+\interfootnotelinepenalty=1000000
+
+% Support for more colors
+\usepackage{xcolor}
+
+% Support for code listings
+\usepackage{listings}
+
+\definecolor{commentgreen}{RGB}{2,112,10}
+\definecolor{eminence}{RGB}{108,48,130}
+\definecolor{weborange}{RGB}{255,165,0}
+\definecolor{frenchplum}{RGB}{129,20,83}
+
+\lstset {
+    language=C++,
+    frame=tb,
+    tabsize=4,
+    showstringspaces=false,
+    numbers=left,
+    %upquote=true,
+    commentstyle=\color{commentgreen},
+    keywordstyle=\color{eminence},
+    stringstyle=\color{red},
+    basicstyle=\small\ttfamily, % basic font setting
+    emph={int,char,double,float,unsigned,void,bool},
+    emphstyle={\color{blue}},
+    % keyword highlighting
+    classoffset=1, % starting new class
+    otherkeywords={>,<,.,;,-,!,=,~},
+    morekeywords={>,<,.,;,-,!,=,~},
+    keywordstyle=\color{weborange},
+    classoffset=0,
+}
+
+\newcommand*{\reals}{\symbb{R}}
+
+% Fix \checkmark command
+\AtBeginDocument{\renewcommand\checkmark{\usefont{U}{msa}{m}{n}X}}
+
+\begin{document}
+
+% \input{laboratories/lab1}
+
+\input{laboratories/exercises-1}
+% \input{laboratories/exercises-2}
+% \input{laboratories/exercises-const}
+% \input{laboratories/exercises-separate-files}
+
+% \input{seminars/seminar1}
+% \input{seminars/seminar2}
+% \input{seminars/seminar3}
+% \input{seminars/seminar4}
+% \input{seminars/seminar7.tex}
+
+\newif\ifreducedrequirements
+
+% \input{project-requirements-141}
+% \input{project-requirements-142}
+
+\end{document}

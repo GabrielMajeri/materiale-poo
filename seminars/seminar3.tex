@@ -1,0 +1,245 @@
+\section*{Seminarul 3}
+
+În cadrul acestui seminar, am început să parcurgem exercițiile de la examenele de POO din anii trecuți, ca să ne familiarizăm cu stilul acestora și să vedem cum ar trebui abordată rezolvarea lor. Am sărit exercițiile care implică noțiuni pe care nu le-am discutat încă (moștenire, excepții, șabloane etc.)
+
+La examen, veți întâlni două tipuri de exerciții:
+\begin{itemize}
+    \item Exercițiile cu \textbf{cod}, la care trebuie indicat dacă programul respectiv compilează sau nu, iar în cazul afirmativ, trebuie menționat ce afișează.
+    \item Subiectele de \textbf{teorie}, la care trebuie descris și/sau exemplificat un concept din limbaj.
+\end{itemize} 
+
+\subsection*{Categoriile de valori}
+
+O noțiune fundamentală și relativ subtilă a limbajului C++, care nu este prezentată la curs, dar care merită avută în minte când încercăm să ne dăm seama dacă un program compilează, este aceea de \textbf{categoria unei valori} (\textit{value category}).
+
+Toate expresiile (= valorile) din C++ pot fi împărțite în două mari categorii:
+\begin{itemize}
+    \item \textbf{Lvalues} sunt valorile care pot apărea „la stânga egalului”, la care le putem lua adresa și în care putem face atribuiri (cât timp nu sunt \texttt{const}).
+    \item \textbf{Rvalues} sunt toate valorile care pot apărea „la dreapta egalului”; le putem transmite ca parametrii în funcții sau putem apela metode pe ele, dar nu putem obține un pointer la ele sau să le atribuim valori. 
+\end{itemize}
+
+\textbf{Un exemplu simplu:} Dacă avem o variabilă \texttt{int x}, are sens să scriem \texttt{x = 3}, dar \texttt{3 = x} nu este o operație validă. În primul caz, putem atribui o valoare în \texttt{x} deoarece acesta corespunde la o zonă de memorie accesibilă pentru scriere (probabil că este alocat pe stivă sau într-un registru), în timp ce în al doilea caz, \(3\) este o valoare constantă temporară, care nu este stocată într-un loc anume.
+
+\textbf{Un exemplu mai complicat:} Dacă am o funcție care returnează un număr întreg prin valoare, \texttt{int f()}, atunci nu are sens să scriu \texttt{f() = 4} (e aceeași eroare ca în al doilea caz din exemplul anterior). Dar dacă returnează o \emph{referință} la un număr întreg, de exemplu \texttt{int\& g()}, atunci nu este nicio problemă să scriem \texttt{g() = 5}. Este foarte posibil să fi întâmpinat deja această situație, dacă ați folosit o clasă container care suprascrie operatorul \texttt{[]} (de exemplu, dacă ați folosit \texttt{std::vector} și ați scris \texttt{vector[0] = 5}).
+
+\textbf{O excepție de la această regulă:} Când obiectul temporar pe care îl întoarcem este de tip structură/clasă, putem să facem atribuirea în el. De exemplu, dacă avem definită clasa \texttt{Exemplu} și funcția {Exemplu g()} care returnează un obiect de tip \texttt{Exemplu}, avem voie să scriem \texttt{g() = altObiectDeTipExemplu}.
+
+\textbf{Referințe utile:} \href{https://en.cppreference.com/w/cpp/language/value_category}{value categories}, \href{https://learn.microsoft.com/en-us/cpp/cpp/lvalues-and-rvalues-visual-cpp?view=msvc-170}{lvalues and rvalues}.
+
+\subsection*{Exerciții de examen din anii trecuți}
+
+\subsubsection*{Exercițiul 1 de la examenul din iunie 2014}
+
+\textbf{Cerință:} Spuneți dacă programul de mai jos este corect. În caz afirmativ, spuneți ce afișează. În caz negativ, spuneți de ce nu este corect.
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+class A
+{   int i;
+    protected: static int x;
+    public: A(int j=7) {i=j; x=j;}
+    int get_x() { return x; }
+    int set_x(int j) { int y=x; x=j; return y; }
+    A operator=(A a1) { set_x(a1.get_x()); return a1; }
+};
+int A::x=15;
+int main()
+{ A a(212), b;
+  cout<<(b=a).get_x();
+  return 0;
+}
+\end{lstlisting}
+
+\textbf{Răspuns:} Programul compilează și afișează valoarea \(7\).
+
+O sintaxă puțin ciudată din cod ar fi \texttt{(b=a).get\_x()}. Operatorul \texttt{=} a fost supraîncărcat și returnează (prin valoare) un obiect de tipul \texttt{A}. Pe această valoare temporară se apelează metoda \texttt{get\_x}, care returnează valoarea variabilei statice \texttt{x}.
+
+Variabila statică \texttt{x} a fost mai întâi inițializată global cu valoarea \(15\), apoi a primit valoarea \(212\) când s-a apelat constructorul pentru variabila locală \texttt{a}, iar în final a primit valoarea \(7\) când s-a apelat constructorul pentru variabila locală \texttt{b} (cu valoarea implicită pentru parametrul \texttt{j}).
+
+\subsubsection*{Exercițiul 2 de la examenul din iunie 2014}
+
+\textbf{Cerință:} Cum se face supraîncărcarea operatorilor în C++ ca funcții membre ale clasei. Particularități.
+
+\textbf{Răspuns:} Supraîncărcarea operatorilor se poate definind o nouă metodă (funcție membru) a clasei în modul uzual, dar în locul numelui ei, scriem cuvântul cheie \texttt{operator} urmat de simbolul care corespunde operatorului pe care vrem să-l supraîncărcăm (de exemplu: \texttt{operator =}, \texttt{operator +}, \texttt{operator !=}).
+
+Aceste funcții fiind definite în interiorul clasei, vor primi implicit ca parametru obiectul curent. Prin urmare, pentru operatorii binari este suficient să definim explicit doar unul dintre parametrii (cel care va veni în dreapta operatorului la apel).
+
+Unii operatori (\texttt{=}, \texttt{()}, \texttt{[]}, \texttt{->}) nu pot fi supraîncărcați decât ca funcții membre ale clasei.
+
+\subsubsection*{Exercițiul 5 de la examenul din iunie 2014}
+
+\textbf{Cerință:} Descrieți pe scurt întoarcerea rezultatului unei funcții prin referință.
+
+\textbf{Răspuns:} O funcție poate întoarce obiecte de orice tip, inclusiv referințe. Este suficient să adăugăm modificatorul \texttt{\&} la tipul de date returnat (înaintea numelui funcției) ca să-i indicăm compilatorului că obiectul returnat ar trebui întors apelantului prin referință, nu prin valoare.
+
+Singurul aspect care trebuie avut în vedere este \textit{durata de viață} a variabilei la care returnăm o referință. Dacă aceasta este una locală din funcție, atunci ea va fi dezalocată în momentul returnării, ceea ce înseamnă că vom returna o referință la o zonă de memorie invalidă. Soluția ar fi să returnăm referințe la variabile care „trăiesc” mai mult decât durata apelului funcției: variabile globale, variabile locale statice, date membre (dacă funcția noastră este o metodă).
+
+\subsubsection*{Exercițiul 6 de la examenul din iunie 2014}
+
+\textbf{Cerință:} Spuneți dacă programul de mai jos este corect. În caz afirmativ, spuneți ce afișează. În caz negativ, spuneți de ce nu este corect.
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+class A
+{   int valoare;
+public:
+    A(int param1=3) : valoare(param1) { }
+    int getValoare() { return this->valoare; }
+};
+int main()
+{
+    A vector[] = {
+        *(new A(3)), *(new A(4)), *(new A(5)), *(new A(6))
+    };
+    cout<<vector[2].getValoare();
+    return 0;
+}
+\end{lstlisting}
+
+\textbf{Răspuns:} Programul funcționează și afișează valoarea \(5\).
+
+Programul inițializează o variabilă locală de tip vector, formată din 4 obiecte de tip \texttt{A}. Accesează al 3-lea element din vector (atenție: indexarea se face pornind de la 0), pe care apelează metoda getter \texttt{getValoare}, care îi returnează câmpul \texttt{valoare} a acelui obiect. Acest obiect a fost inițializat prin dereferențierea și copierea obiectului alocat dinamic \texttt{new A(5)}, deci are câmpul \texttt{valoare} egal cu 5.
+
+Particularitatea acestui cod este că, în loc să le creeze direct pe stivă și să le apeleze constructorul de inițializare (e.g. \texttt{A vector[] = \{ A(3), A(4), \dots \, \}}), programul alocă fiecare obiect în mod dinamic, iar apoi folosește operatorul de dereferențiere \texttt{*} pentru a le copia valoarea (deci se apelează și constructorul de copiere de 4 ori).
+
+Mai mult, programul suferă de un \textit{memory leak}, deoarece nu dezalochează corespunzător memoria pe care a alocat-o cu \texttt{new}, dar această problemă nu afectează rularea programului.
+
+\subsubsection*{Exercițiul 10 de la examenul din iunie 2014}
+
+\textbf{Cerință:} Spuneți dacă programul de mai jos este corect. În caz afirmativ, spuneți ce afișează. În caz negativ, spuneți de ce nu este corect.
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+class cls
+{ int x;
+  public: cls(int i=0) {cout << " c1 "; x=i; }
+          ~cls() { cout << " d1 ";}  };
+
+class cls1
+{ int x; cls xx;
+  public: cls1(int i=0) {cout << " c2 "; x=i; }
+          ~cls1() { cout << " d2 ";} }c;
+
+class cls2
+{ int x; cls1 xx; cls xxx;
+  public: cls2(int i=0) {cout << " c3 "; x=i; }
+          ~cls2() { cout << " d3 ";}  };
+
+int main()
+{ cls2 s;
+  return 0;
+}
+\end{lstlisting}
+
+\textbf{Răspuns:} Programul funcționează și afișează: \texttt{c1  c2  c1  c2  c1  c3  d3  d1  d2  d1  d2  d1}.
+
+Acest exercițiu verifică că înțelegem ordinea în care se apelează constructorii într-un program C++ (și, implicit, că înțelegem și ordinea în care se apelează destructorii, deoarece este fix invers față de cea a constructorilor).
+
+Trebuie să avem grijă la variabila globală \texttt{c}, care este declarată la sfârșitul rândului 11, după finalizarea definiției clasei \texttt{cls1}. Constructorul acesteia se va rula înaintea subprogramului principal, iar destructorul ei se va rula după ce acesta returnează.
+
+În cadrul fiecărei clase, compilatorul apelează automat constructorii pentru fiecare dată membru, \emph{în ordinea în care acestea au fost definite}, înainte de a executa blocul de cod din constructorul respectiv.
+
+\subsubsection*{Exercițiul 13 de la examenul din iunie 2014}
+
+\textbf{Cerință:} Spuneți dacă programul de mai jos este corect. În caz afirmativ, spuneți ce afișează. În caz negativ, spuneți de ce nu este corect.
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+class cls
+{     int x;
+public: cls(int i=3) { x=i; }
+        int& f() const { return x; } };
+int main()
+{ const cls a(-3);
+        int b=a.f();
+  cout<<b;
+  return 0;
+}
+\end{lstlisting}
+
+\textbf{Răspuns:} Programul nu compilează din cauza unei erori la linia 6: nu se poate crea o referință mutabilă (non-\texttt{const}) la o variabilă care este constantă.
+
+Metoda \texttt{f} este declarată ca fiind \texttt{const}; are acces la toate datele membru ca o metodă obișnuită, dar „le vede” de parcă ar fi fost la rândul lor declarate cu \texttt{const}. Eroarea pe care o primim este aceeași pe care am fi întâmpinat-o dacă am fi scris, de exemplu, \texttt{const int x = 1; int\& y = x}.
+
+\subsubsection*{Exercițiul 6 de la examenul din iunie 2013}
+
+\textbf{Cerință:} Spuneți dacă programul de mai jos este corect. În caz afirmativ, spuneți ce afișează. În caz negativ, spuneți de ce nu este corect.
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+class X {   int i;
+public:   X(int ii = 5) { i = ii; cout<< i;};
+          void afisare(int j) { cout<<i;}; }o;
+int main()
+{ X O (7);
+  X &O2=o;
+  O2.afisare(5);
+  const X* p=&O;
+  p->afisare(3);
+  return 0;
+}
+\end{lstlisting}
+
+\textbf{Răspuns:} Programul nu compilează din cauza unei erori la linia 11: nu se poate apela metoda \texttt{afisare}, care \emph{nu} a fost declarată cu \texttt{const}, pe un pointer către un obiect constant.
+
+Metoda \texttt{afisare}, așa cum a fost declarată, trebuie să primească un pointer \texttt{this} la obiectul implicit de tipul \texttt{X*}. Dar noi încercăm să o apelăm pe un obiect de tipul \texttt{const X*}, pe care se pot apela doar metode \texttt{const}.
+
+\subsubsection*{Exercițiul 11 de la examenul din iunie 2013}
+
+\textbf{Cerință:} Cum se face supraîncărcarea operatorilor ca funcții independente în C++. Particularități.
+
+\textbf{Răspuns:} Supraîncărcarea operatorilor ca funcții libere se face asemănător cu supraîncărcarea operatorilor prin funcții membru, diferența fiind că le definim în afara clasei și că nu mai primesc implicit obiectul \texttt{this} ca parametru.
+
+De menționat este că unii operatori (\texttt{=}, \texttt{()}, \texttt{[]}, \texttt{->}) nu pot fi supraîncărcați ca funcții independente.
+
+\subsubsection*{Exercițiul 12 de la examenul din iunie 2013}
+
+\textbf{Cerință:} Spuneți dacă programul de mai jos este corect. În caz afirmativ, spuneți ce afișează. În caz negativ, spuneți de ce nu este corect.
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+class CL
+{ static int x;
+  public: CL(int i=3) {x=i; }
+  int get_x() { return x; }
+  int& set_x(int i) { x=i;return x;}
+  CL operator=(CL a1) { set_x(a1.get_x()); return a1;}
+} a(19);
+int CL::x;
+int main()
+{ CL b;
+  cout<<(b=a).get_x();
+  return 0; }
+\end{lstlisting}
+
+\textbf{Răspuns:} Programul rulează și afișează valoarea \(3\).
+
+Metoda \texttt{get\_x} returnează valoarea variabilei statice \texttt{x}, deci este suficient să urmărim evoluția ei:
+\begin{itemize}
+    \item Variabila \texttt{x} este definită/inițializată la linia 10 din program. Fiind o variabilă de tip primitiv, alocată în zona de memorie globală, căruia nu i-am dat în mod explicit vreo valoare, se va inițializa cu 0.
+
+    \item Înainte de execuția subprogramului principal, se rulează constructorul pentru variabila globală \texttt{a} (declarată la linia 9). Constructorul ei primește valoarea \(19\) pentru parametrul \(i\); îi atribuie această valoare lui \texttt{x}.
+
+    \item În cadrul subprogramului \texttt{main}, creăm o variabilă locală \texttt{b} care apelează constructorul fără parametri al clasei \texttt{CL}; acesta este cel definit la linia 5, cu valoarea implicită \(3\) pentru parametrul \(i\). Deci \texttt{x} va avea valoarea \(3\) după această inițializare.
+
+    \item Operatorul de atribuire de la linia 8 lasă practic neschimbată valoarea lui \texttt{x}.
+\end{itemize}
+
+\subsubsection*{Exercițiul 15 de la examenul din iunie 2013}
+
+\textbf{Cerință:} Spuneți dacă programul de mai jos este corect. În caz afirmativ, spuneți ce afișează. În caz negativ, spuneți de ce nu este corect.
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+struct X {   int i;
+public:   X(int ii = 0) { i = ii; cout<< i;};
+          void afisare(){cout<<i++;}; } o;
+const X apel(int j) {   return X(j); }
+void apel2(X& x) {
+  x.afisare(); }
+int main()
+{ apel2(apel(2)=X(5));
+  return 0; }
+\end{lstlisting}
+
+\textbf{Răspuns:} Codul nu compilează din cauza liniei 10. Problema este că metoda \texttt{apel} returnează un obiect de tip \texttt{const X}, dar operatorul \texttt{=} (care în acest caz, este generat automat de compilator) se așteaptă să poată modifica obiectul implicit (i.e.\ nu este o metodă \texttt{const}).

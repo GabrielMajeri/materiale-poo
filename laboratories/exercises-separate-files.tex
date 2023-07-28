@@ -1,0 +1,182 @@
+\section*{Separarea declarațiilor și definițiilor}
+
+Limbajul C++ distinge între \emph{declararea} unei funcții sau a unei variabile și \emph{definirea} acesteia. Declararea este momentul în care îi spunem compilatorului \emph{ce tip de date} are funcția sau variabila; definiția este momentul în care îi spunem ce cod/implementare are funcția, respectiv ce valoare inițială are variabila.
+
+Acest material o să vă ofere câteva exemple pentru cum puteți separa declarațiile funcțiilor și variabilelor voastre de definițiile lor.
+
+\textbf{Observație:} VS Code nu oferă suport implicit pentru compilarea proiectelor de C++ formate din mai multe fișiere sursă. Va fi nevoie \href{https://code.visualstudio.com/docs/cpp/config-msvc#_modifying-tasksjson}{să modificați configurația din \texttt{tasks.json}} sau \href{https://code.visualstudio.com/docs/cpp/cmake-linux}{să folosiți plugin-ul de CMake}.
+
+În cazul celorlalte editoare/IDE-uri menționate în PDF-ul de la primul laborator, ar trebui să fie suficient doar să adăugați fișierele sursă noi în proiectul vostru.
+
+\subsection*{Definirea separată a funcțiilor}
+
+Înainte de a parcurge această secțiune ar fi bine să fiți familiari cu \href{https://stackoverflow.com/a/6264256/5723188}{etapele compilării unui program de C++} (\textit{preprocessing}, \textit{compilation}, \textit{linking}).
+
+Dacă compilăm următorul fișier sursă, vom obține un executabil care afișează valoarea \(25\) la consolă:
+\begin{lstlisting}
+#include <iostream>
+
+int square(int x)
+{
+    return x * x;
+}
+
+int main()
+{
+    std::cout << square(5) << std::endl;
+}
+\end{lstlisting}
+
+Dacă eliminăm corpul funcției \texttt{square} și îi lăsăm doar antetul, programul va trece faza de \emph{compilation}, dar vom avea o eroare la faza de \emph{linking}:
+\begin{lstlisting}
+#include <iostream>
+
+int square(int x);
+
+int main()
+{
+    std::cout << square(5) << std::endl;
+}
+\end{lstlisting}
+Compilatorul compilează pe rând fiecare fișier \texttt{cpp} din proiectul nostru, iar apoi încearcă să le pună pe toate laolaltă pentru a obține binarul final. În acest caz, avem un singur fișier sursă, iar acesta conține un simbol care nu este definit nicăieri (funcția \texttt{square}).
+
+Putem alege să lăsăm declararea funcției înainte de \texttt{main}, dar să o definim mai jos:
+\begin{lstlisting}
+#include <iostream>
+
+int square(int x);
+
+int main()
+{
+    std::cout << square(5) << std::endl;
+}
+
+int square(int x)
+{
+    return x * x;
+}
+\end{lstlisting}
+Din nou, fișierul sursă trece fără probleme de faza de \emph{compilation}, deoarece avem declarată funcția \texttt{square} înainte de prima ei utilizare. La faza de \emph{linking}, compilatorul va găsi funcția \texttt{square} (definită după \texttt{main}) și nu vom rămâne cu simboluri nedefinite.
+
+Același principiu funcționează și dacă avem mai multe fișiere sursă în proiectul nostru. De exemplu, în \texttt{main.cpp} putem avea:
+\begin{lstlisting}
+#include <iostream>
+
+int square(int x);
+
+int main()
+{
+    std::cout << square(5) << std::endl;
+}
+\end{lstlisting}
+Iar în fișierul \texttt{square.cpp} putem avea doar:
+\begin{lstlisting}   
+int square(int x)
+{
+    return x * x;
+}
+\end{lstlisting}
+
+Singura problemă rămasă care mai poate apărea este dacă signatura funcției declarate nu se potrivește cu signatura funcției definite. Dacă schimbăm tipul de date returnat sau parametrii funcției din \texttt{main.cpp}, compilatorul nu va mai reuși să o potrivească cu definiția funcției \texttt{square} din fișierul \texttt{square.cpp}. Problema va fi la faza de \emph{linking}, nu la \emph{compilation}, ceea ce poate duce la mesaje de eroare greu de înțeles.
+
+Pentru a preveni această situație, dar și pentru a putea refolosi în mai multe fișiere sursă aceiași declarație, o putem muta într-un fișier \emph{header}, denumit (de exemplu) \texttt{square.hpp}:
+\begin{lstlisting}
+#ifndef SQUARE_HPP
+#define SQUARE_HPP
+
+int square(int x);
+
+#endif
+\end{lstlisting}
+Directivele de preprocesare cu \texttt{\#ifndef} și \texttt{\#define} sunt un \href{https://en.wikipedia.org/wiki/Include_guard}{\emph{include guard}}, se pun de obicei în toate fișierele header pentru a preveni includerea multiplă a acestora. Alternativ, putem folosi \texttt{\#pragma once}:
+\begin{lstlisting}
+#pragma once
+
+int square(int x);
+\end{lstlisting}
+Directiva de preprocesare \texttt{\#pragma once} nu este standard, dar este suportată de majoritatea compilatoarelor de C++.
+
+\subsection*{Definirea separată a metodelor}
+
+La fel ca și pentru funcții, putem declara metodele atunci când definim o structură/clasă în C++, și să le definim ulterior:
+\begin{lstlisting}
+class Exemplu
+{
+    int x;
+
+public:
+    Exemplu(int valoare);
+    int get_x() const;
+};
+
+Exemplu::Exemplu(int valoare)
+{
+    x = valoare;
+}
+
+int Exemplu::get_x() const
+{
+    return x;
+}
+\end{lstlisting}
+
+Definirea separată a metodelor este asemănătoare cu definirea separată a funcțiilor; trebuie să avem grijă ca signatura declarată în clasă să se potrivească cu cea folosită la definiție.
+
+Principala diferență este că trebuie să includem numele clasei atunci când le implementăm (în cazul nostru, \texttt{Exemplu::}), ca să le putem distinge de funcțiile libere cu același nume.
+
+\subsection*{Declararea înainte a claselor}
+
+Pe lângă faptul că putem defini separat metodele unei clase, putem doar \href{https://www.geeksforgeeks.org/what-are-forward-declarations-in-c/}{să declarăm existența} unei clase, definind-o ulterior.
+
+\begin{lstlisting}
+class Exemplu;
+
+void proceseaza(Exemplu ex);
+\end{lstlisting}
+
+În această situație, \textbf{nu} vom putea defini variabile concrete de tipul acestei clase până nu avem și definiția clasei în același fișier. Asta se întâmplă deoarece compilatorul nu poate determina cât spațiu să aloce pe stivă (dacă e vorba de o variabilă locală) sau în memoria globală (dacă e vorba de o variabilă globală) pentru obiectele din clasa respectivă.
+
+\begin{lstlisting}
+class Exemplu;
+
+Exemplu x; // eroare de compilare
+
+void proceseaza(Exemplu ex) // eroare de compilare
+{
+    // ...
+}
+\end{lstlisting}
+
+\subsection*{Definirea separată a variabilelor}
+
+Variabilele pot fi declarate și ele înainte de a fi definite. Problema este că atunci când declarăm o variabilă, compilatorul implicit o și instanțiază (îi apelează constructorul fără parametrii). De aceea, trebuie să folosim cuvântul cheie \texttt{extern} pentru a dezactiva acest comportament:
+\begin{lstlisting}
+#include <iostream>
+
+extern int x;
+
+int main()
+{
+    std::cout << "Valoarea lui x este " << x << std::endl;
+}
+
+int x = 5;
+\end{lstlisting}
+
+Dacă nu am fi inclus definiția lui \texttt{x} după subprogramul principal, codul ar fi trecut de \emph{compilation} dar am fi avut o eroare la faza de \emph{linking}.
+
+\textbf{Observație:} nu putem să folosim modificatorul \texttt{extern} pentru variabile locale, doar pentru cele globale.
+
+Pentru variabilele statice dintr-o structură/clasă, comportamentul implicit este ca acestea să fie doar declarate în cadrul structurii/clasei, și definite undeva în afară:
+\begin{lstlisting}
+class Exemplu {
+    static int x;
+
+public:
+    static int get_x() { return x; }
+};
+
+int Exemplu::x = 15;
+\end{lstlisting}
+
+De fapt, dacă variabila statică nu este declarată cu \texttt{const}, nici măcar nu este permis să o \emph{definim} în interiorul clasei.

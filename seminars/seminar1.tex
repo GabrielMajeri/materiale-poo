@@ -1,0 +1,177 @@
+\section*{Seminarul 1}
+
+\subsection*{Ce este C++?}
+
+% TODO: break into what C++ is vs. when it is (most commonly) used
+C++ este un limbaj de programare folosit în special în situațiile în care avem nevoie să dezvoltăm aplicații complexe cu cerințe ridicate de performanță (browsere, grafică/jocuri pe calculator, embedded systems, banking etc.).
+
+% TODO: expand history section, try to paint the bigger picture
+C++ este o evoluție a limbajului C, la rândul său conceput ca un „limbaj de asamblare portabil”.
+
+Câteva particularități ale C++:
+\begin{itemize}
+    % TODO: include multi-paradigm
+    % TODO: mention manual memory language, memory unsafety
+
+    \item este un limbaj \textbf{compilat}; pentru a putea rula un program scris în C++, trebuie să folosim un compilator pentru a obține un binar executabil.
+
+    \item are un \textbf{sistem static de tipuri de date}; în comparație cu Python sau JavaScript, unde variabilele își pot schimba oricând tipul de date, fiecare expresie sau variabilă dintr-un program C++ are un tip de date bine-definit încă din momentul compilării.
+
+    \item este un limbaj \textbf{portabil}; codul sursă al unui program C++ poate fi (de obicei) recompilat fără modificări ca să ruleze pe alte sisteme de operare sau arhitecturi de procesor.
+
+    \item este un limbaj \textbf{eficient}; un program de C++ optimizat are performanțe comparative cu unul scris în limbaj de asamblare.
+\end{itemize}
+
+C++ nu este deținut de o singură organizație; este specificat printr-un \href{https://isocpp.org/std/the-standard}{standard internațional al ISO}, fiind implementat de mai multe compilatoare diferite.
+
+\subsection*{De ce folosim C++?}
+
+În primul semestru, ați învățat să scrieți programe folosind limbajul de asamblare specific arhitecturii x86. Teoretic putem implementa orice fel de aplicație cu acesta, dar are câteva dezavantaje:
+\begin{itemize}
+    \item este foarte \textbf{explicit}; trebuie să gestionăm manual regiștrii, stiva de apel etc.
+    
+    \item oferă puține metode de \textbf{reutilizare} a codului, dincolo de subprogramele scrise de noi.
+    
+    \item \textbf{nu} este \textbf{portabil}; limbajul de asamblare pentru x86 este foarte diferit de cel pentru ARM, de exemplu.
+    
+    \item este \textbf{nesigur}, nu are măsuri pentru prevenirea greșelilor programatorului; putem efectua un \texttt{jmp} arbitrar în zone de memorie invalide.
+\end{itemize}
+C/C++ rezolvă în mare măsură aceste limitări ale limbajului de asamblare, lăsând însă programatorului suficient control asupra codului generat ca să nu se piardă din performanță.
+
+% \subsection*{Cum funcționează procesul de compilare?}
+
+\subsection*{Tipuri de date}
+
+\subsubsection*{Ce sunt tipurile de date?}
+
+În teoria limbajelor de programare, un „tip de date” reprezintă o \emph{mulțime} de valori pe care le poate lua o variabilă. Pentru noi, tipul de date al unei variabile ne va spune cum să interpretăm biții stocați în zona de memorie aferentă acelei variabile, respectiv ce fel de operații/funcții putem aplica pe ea.
+
+\textbf{Observație:} tipurile de date sunt utilizate de către compilator și sunt importante pentru modelul mental al programatorului, dar sunt eliminate după compilare. Limbajul mașină generat nu reține niciun fel de informație despre tipurile de date existente inițial\footnote{Cu o mică excepție pe care o vom discuta ulterior la un seminar.}.
+
+\subsubsection*{Tipuri de date implicite}
+
+În C++ avem câteva tipuri de date implicite (definite de către limbaj), cu care probabil sunteți deja familiari: \texttt{bool}, \texttt{char}, \texttt{short}, \texttt{int}, \texttt{long}, \texttt{float}, \texttt{double} etc.
+
+Pe lângă variabile individuale, putem declara și tablouri (vectori) de elemente cu aceste tipuri de date: \texttt{char sir[10]}, \texttt{int numere[100]} etc.
+
+Un tip de date special sunt \textbf{referințele} și \textbf{pointerii}. Vom discuta despre acestea într-un seminar viitor.
+
+\subsubsection*{Definirea unor noi tipuri de date}
+
+În programele noastre putem defini și tipuri de date compuse, care conțin mai multe câmpuri de tipuri de date diferite, fiecare cu un nume distinct.
+
+Pentru a defini un tip de date compus, putem folosi cuvântul cheie \texttt{struct} (cu care probabil sunteți deja familiari) sau cuvântul cheie \texttt{class}. Singura diferență la nivel de limbaj este că toate datele membre/metodele dintr-un \texttt{struct} sunt implicit public, în timp ce toate datele membre/metodele dintr-un \texttt{class} sunt implicit private (vezi următoarea secțiune).
+
+Un alt mod de a defini un nou tip de date este folosind cuvântul cheie \texttt{enum} (prescurtare de la „enumerație”):
+\begin{lstlisting}
+enum Culoare {
+    Alb,
+    Negru
+};
+\end{lstlisting}
+Variabilele de tip \texttt{Culoare} pot primi doar valoarea \texttt{Alb} sau doar valoarea \texttt{Negru}, asemănător cum la un \texttt{bool} putem atribui doar \texttt{true} sau \texttt{false}.
+
+\subsection*{Metode}
+
+După ce am definit un nou tip de date, putem defini și subprograme care să primească ca parametru instanțe ale acestuia:
+
+\begin{lstlisting}
+struct Punct {
+    int x, y;
+}
+
+void afiseaza(Punct punct) {
+    cout << punct.x << ' ' << punct.y << '\n';
+}
+\end{lstlisting}
+
+Pentru a apela funcția \texttt{afiseaza}, trebuie să scriem \texttt{afiseaza(punct)}.
+
+Ca parte din funcționalitățile de POO ale limbajului C++, avem și opțiunea de a asocia o funcție cu o structură/o clasă:
+
+\begin{lstlisting}
+struct Punct {
+    int x, y;
+
+    void afiseaza() {
+        cout << x << ' ' << y << '\n';
+    }
+}
+\end{lstlisting}
+Acum vom putea scrie \texttt{punct.afiseaza()} pentru a apela funcția de afișare.
+
+\textbf{Observație:} de obicei, funcțiile definite în interiorul structurilor/claselor se numesc \emph{metode}.
+
+În cadrul unei metode, avem implicit acces la toate datele membru și toate metodele asociate obiectului pe care a fost apelată. De aceea nu a mai fost nevoie să scriem \texttt{punct.x} sau \texttt{punct.y}.
+
+\subsection*{Modificatori de acces}
+
+În majoritatea cazurilor, nu vrem ca utilizatorii structurilor/claselor definite de noi să poată să acceseze sau să modifice direct starea lor internă (de exemplu, dacă în clasa \texttt{Vector} reținem un vector de numere și lungimea acestuia, am putea din greșeală să setăm din exterior o valoare negativă pentru lungime). C++ previne astfel de erori prin sistemul de modificatori de acces.
+
+Există trei tipuri de modificatori de acces care pot fi folosiți: \texttt{public}, \texttt{private} și \texttt{protected}. Vom discuta doar despre primii doi în acest seminar, deoarece al treilea are sens doar în contextul moștenirii de clase.
+
+Toate datele membru și metodele care sunt într-o secțiune marcată ca fiind \texttt{public} pot fi accesate atât de codul din clasa respectivă, cât și codul din afară. În schimb, datele membru și metodele dintr-o secțiune \texttt{private} nu pot fi accesate decât de alte metode ale aceleiași clase.
+
+\begin{lstlisting}
+class Exemplu {
+    int suntImplicitPrivat;
+
+public:
+    void metodaPublica1() {
+        suntImplicitPrivat = 1;
+    }
+
+private:
+    void metodaPrivata() {
+        metodaPublica1();
+    }
+
+public:
+    void metodaPublica2() {
+        metodaPrivata();
+        cout << suntImplicitPrivat << '\n';
+    }
+};
+\end{lstlisting}
+
+Modificatorii de acces sunt alt element de limbaj care nu se regăsește în codul generat; compilatorul verifică și impune restricțiile de acces la datele membru și la metode la momentul compilării, iar acestea sunt apoi eliminate.
+
+\subsection*{Constructori și destructori}
+
+De multe ori, la momentul creării unui obiect vrem să inițializăm datele membru cu anumite valori. O soluție ar fi să facem asta manual de fiecare dată când definim o variabilă de tipul respectiv, dar riscăm să uităm să facem acest lucru sau să nu fim consistenți. C++ oferă posibilitatea de a defini \textbf{constructori}, niște metode speciale care vor fi apelate automat de compilator oricând se creează un obiect din clasa respectivă.
+
+Un constructor se poate defini adăugând o \emph{metodă cu același nume ca cel al clasei} la care vrem să-l adăugăm, fără a specifica vreun tip de date returnat. Un constructor, la fel ca orice metodă obișnuită, poate să primească zero sau mai mulți parametrii, și are acces la obiectul implicit (i.e. putem să accesăm direct datele membru/alte metode în constructor, sau prin intermediul pointer-ului \texttt{this}).
+
+Un exemplu de constructor fără parametrii, care inițializează cu \(0\) datele membru:
+\begin{lstlisting}
+class NumarComplex {
+    double real, imag;
+
+public:
+    NumarComplex() {
+        real = 0.0;
+        imag = 0.0;
+    }
+};
+\end{lstlisting}
+
+Analog, putem să ne dorim să executăm automat niște cod de fiecare dată când o variabilă de un anumit tip este dezalocată (de exemplu: să salvăm și să închidem automat un fișier când am terminat să scriem în el). În acest sens, C++ ne permite să definim pentru fiecare clasă un \textbf{destructor}, care va fi apelat automat la sfârșitul vieții unei variabile (când se termină blocul de cod, dacă este locală; când se termină programul, dacă este globală; când apelăm \texttt{delete}/\texttt{delete[]}, dacă este alocată dinamic).
+
+Un exemplu de clasă cu constructor (cu un parametru) și destructor:
+\begin{lstlisting}
+class Vector {
+    int* data;
+    int length;
+
+public:
+    Vector(int n) {
+        data = new int[n];
+        length = n;
+    }
+
+    ~Vector() {
+        delete[] data;
+    }
+};
+\end{lstlisting}
+Un exemplu de declarație al unei variabile din această clasă ar fi \texttt{Vector v(10);}

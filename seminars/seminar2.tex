@@ -1,0 +1,93 @@
+\section*{Seminarul 2}
+
+\subsection*{Versiunile limbajului C++}
+
+Limbajul C++ este definit de un standard internațional, pentru care există câteva versiuni distincte: C++98, C++03, C++11, C++14, C++17, C++20 (ultimele două cifre indică anul în care au fost adoptate).
+
+La curs vi se vor preda exclusiv noțiuni existente în C++98 (și doar acestea vor apărea și la examenul scris), dar la colocviu și la proiectul de laborator \textbf{aveți voie} să folosiți elemente din versiunile mai recente ale limbajului.
+
+La seminar/laborator, unde este cazul, voi încerca să menționez funcționalitățile noi sau alternativele moderne la anumite elemente de limbaj.
+
+\subsection*{Un tur prin C++}
+
+Atunci când învățăm un nou limbaj de programare, este bine să avem o vedere de ansamblu a tuturor capabilităților acelui limbaj.
+
+În cadrul acestui seminar, am trecut repede prin \href{https://isocpp.org/images/uploads/2-Tour-Basics.pdf}{primul PDF} din cartea \emph{A Tour of C++} a lui Bjarne Stroutstrup (creatorul limbajului C++), oferită gratuit (într-o variantă draft) pe pagina \url{https://isocpp.org/tour}. Am introdus/menționat:
+\begin{itemize}
+    \item Subprogramul principal \texttt{int main()};
+    \item Afișarea pe ecran folosind \texttt{cout};
+    \item Definirea de noi subprograme;
+    \item Tipurile de date fundamentale (discutate deja în primul seminar) și operațiile pe care le putem efectua cu ele;
+    \item Sintaxa de inițializare uniformă (introdusă în C++11);
+    \item Definierea unei variabile cu tip de date dedus automat, folosind cuvântul cheie \texttt{auto} (introdus în C++11);
+    \item Modificatorii \texttt{const} și \texttt{constexpr} (al doilea a fost introdus în C++11); 
+    \item Structuri condiționate și repetitive de bază;
+    \item Strucutră condiționată de tip \texttt{switch};
+    \item Tablouri unidimensionale și pointeri;
+    \item Referințe;
+    \item Definirea de noi tipuri de date folosind \texttt{struct};
+    \item Accesarea datelor membru/metodelor folosind „\texttt{.}”, respectiv „\texttt{->}”;
+    \item Definirea de noi tipuri de date folosind \texttt{class};
+    \item Modificatorii de acces \texttt{public} și \texttt{private};
+    \item Constructori și liste de inițializare;
+    \item Metode;
+    \item Tipuri de date de tip enumerație (\texttt{enum}); sintaxa modernă de definire a enumerațiilor (\texttt{enum class}, introdus în C++);
+    \item Declarări vs.\ definiții; definirea unor funcții/metode în fișiere separate;
+    \item Namespace-uri;
+\end{itemize}
+
+\subsection*{Modelarea unei probleme folosind C++}
+
+O resursă utilă în pregătirea pentru colocviu/examen sunt \href{https://github.com/DimaOanaTeodora/Tutoriat-POO-2022}{materialele de la tutoriatul de POO din 2022}. Printre altele, găsiți acolo și un link la o \href{https://github.com/dariabroscoteanu/OOP/tree/main/Lab\%20Exams}{listă de colocvii din anii trecuți}, cu enunțuri și rezolvări.
+
+Am început să ne uităm peste și să rezolvăm subiectul de la \href{https://github.com/dariabroscoteanu/OOP/blob/main/Lab\%20Exams/Colocviu2017\%20-\%2015\%2621/POO\%20colocviu\%20vara\%202017.jpg}{colocviul de POO din vara lui 2017}. Tema a fost o aplicație de gestiune a unor proprietăți și a unor contracte pentru o agenție imobiliară.
+
+Primul pas în rezolvarea unui colocviu este să identificăm \textbf{entitățile} pe care va trebui să le gestionăm (\emph{clasele}), respectiv \textbf{legăturile} dintre ele (cum le \emph{compunem}, dacă va fi nevoie de \emph{moștenire} etc.) și ce \textbf{funcționalități} au (\emph{metodele} pe care le vom defini în fiecare clasă).
+
+Pe baza enunțului problemei, am identificat următoarele entități:
+\begin{itemize}
+    \item \textbf{Proprietate:} o proprietate gestionată de agenția imobiliară (o casă sau un apartament).
+
+    Conține următoarele câmpuri:
+    \begin{itemize}
+        \item adresa (șir de caractere);
+        \item suprafața locuibilă în metri pătrați (număr real);
+        \item valoarea chiriei pe metru pătrat (număr real);
+    \end{itemize}
+
+    Am distins două tipuri de proprietăți: \emph{case} și \emph{apartamente}.
+    \begin{itemize}
+        \item Pentru case va trebui să reținem în plus numărul de niveluri (număr natural) și suprafața curții în metrii pătrați (număr real).
+        \item Pentru apartamente va trebui să reținem în plus etajul la care se află (număr natural) și număr de camere (număr natural).
+    \end{itemize}
+
+    Din enunț reiese că pentru proprietăți va trebui să avem o metodă care să calculeze costul \textbf{chiriei lunare} (valoarea înainte de aplicarea discount-ului).
+
+    \item \textbf{Contract de închiriere:} un contract încheiat între agenție și un chiriaș.
+
+    Conține următoarele câmpuri:
+    \begin{itemize}
+        \item numele clientului (șir de caractere);
+        \item perioada de închiriere (o „perioadă”, un tip de date care va fi definit de noi);
+        \item o referință/un pointer la proprietatea care se închiriază;
+    \end{itemize}
+
+    Avem nevoie de o referință la proprietatea pe care vrem să o închiriem, deoarece la un moment dat va trebui să calculăm cât este \textbf{chiria lunară} a unei proprietăți, cu tot cu \textbf{discount}-ul aplicat, iar atunci vom vrea să ne folosim de metoda de calcul a chiriei lunare (fără discount) din clasa \texttt{Proprietate}.
+
+    \item \textbf{Contract de vânzare-cumpărare:} un contract prin care agenția vinde o proprietate la un client, cu banii jos sau în rate.
+
+    Conține următoarele câmpuri:
+    \begin{itemize}
+        \item numele clientului (șir de caractere);
+        \item perioada de închiriere (o „perioadă”, un tip de date care va fi definit de noi);
+        \item o referință/un pointer la proprietatea care se închiriază;
+    \end{itemize}
+
+    Și în acest caz reținem o referință la proprietatea care va fi vândută, din considerente similare; prețul de vânzare al proprietății depinde de chiria lunară, calculată de o metodă din clasa \texttt{Proprietate}.
+    
+    \item \textbf{Perioadă:} un interval calendaristic, cuprins între două date.
+    
+    \item \textbf{Dată:} reține luna și anul în care a avut loc un eveniment (în contextul cerinței, nu ni se cere să reținem și ziua).
+\end{itemize}
+
+Am observat de asemenea că există o oarecare similaritate între contractele de închiriere și cele de vânzare-cumpărare (ambele rețin numele unui client); am putea avea o singură entitate \textbf{Contract} (care să rețină numele clientului) și două sub-entități (cu date membru și metode specifice).

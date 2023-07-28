@@ -1,0 +1,86 @@
+\section*{Exerciții cu modificatorul \texorpdfstring{\texttt{const}}{const}}
+
+\subsection*{Motivație}
+
+Toate variabilele pe care le declarăm într-un program C++ sunt implicit \textbf{mutabile}, adică le putem modifica după ce le-am inițializat (i.e.\@ putem schimba valoarea reținută în acea zonă de memorie). Din păcate, foarte multe bug-uri în practică apar din cauză că modificăm neintenționat anumite date.
+
+De exemplu, poate că găsiți indicele unui element într-un vector, apelați un sub-program (care primește vectorul ca parametru) și apoi faceți ceva cu elementul de pe poziția \(i\). Ce se întâmplă dacă subprogramul respectiv inserează un nou element în vector înainte de cel de pe poziția \(i\)? Indicele pe care l-ați găsit nu va mai fi valid. Limbajul oferă o măsură de prevenție pentru astfel de situații, prin cuvântul cheie/modificatorul \texttt{const}.
+
+\texttt{const} este o promisiune pe care i-o facem compilatorului; îi indicăm că nu intenționăm să modificăm o variabilă după ce am declarat-o și inițializat-o, iar el se va asigura de acest lucru.
+
+\textbf{Referințe utile:} \href{https://www.freecodecamp.org/news/write-safer-and-cleaner-code-by-leveraging-the-power-of-immutability-7862df04b7b6/}{\textit{Write safer and cleaner code by leveraging the power of ``Immutability"}}, \href{https://web.mit.edu/6.005/www/fa15/classes/09-immutability/}{\textit{Mutability \& Immutability}}.
+
+\subsection*{Variabile \texorpdfstring{\texttt{const}}{const}}
+
+Toate aceste exerciții se pot rezolva în subprogramul principal.
+
+\begin{enumerate}
+    \item Definiți o variabilă locală de tip \texttt{const int}, inițializată cu un număr întreg ales de voi.
+    
+    Încercați să atribuiți o nouă valoare variabilei (după inițializare). Ce mesaj de eroare primiți? Când este detectată eroarea (la compilare sau în momentul execuției)?
+
+    \item Declarați o variabilă de tip \texttt{int\&}. Puteți să o inițializați cu o referință la o variabilă de tip \texttt{const int}? De ce credeți că previne acest lucru compilatorul?
+
+    \item Declarați o variabilă locală de tip \texttt{const int\&}. Încercați să o inițializați cu o referință la o variabilă de tip \texttt{const int}.
+    
+    Declarați o altă variabilă locală de tip \texttt{const int\&} și încercați să o inițializați folosind o variabilă de tip \texttt{int}.
+    
+    De ce funcționează ambele metode?
+
+    \item Declarați o variabilă de tip \texttt{const int\&} și inițializați-o cu constanta \texttt{42} (sau cu ce număr întreg vreți voi). Toate valorile literale/constante din cod au implicit tipul de date \texttt{const int} / \texttt{const char[]} / etc.
+
+    Același lucru se aplică și pentru valorile temporare/„auxiliare”. De exemplu, dacă am o funcție care primește un parametru de tipul \texttt{const int\&}, o pot apela și cu expresia \texttt{2 * (3 + 5)}, dar nu pot face acest lucru dacă așteaptă un parametru de tip \texttt{int\&}.
+\end{enumerate}
+
+\subsection*{Pointeri \texorpdfstring{\texttt{const}}{const}}
+
+Când lucrăm cu pointeri, trebuie să avem grijă deoarece putem pune modificatorul \texttt{const} în două locuri diferite.
+
+Toate aceste exerciții se pot rezolva în subprogramul principal.
+
+\begin{enumerate}
+    \item Creați o variabilă de tip \texttt{int*}. Inițializați-o cu adresa unei variabile de tip \texttt{int}.
+
+    Modificați pointerul ca să trimită către o altă variabilă de tip \texttt{int}. În comparație cu referințele, pointerii pot să rețină adresa unor obiecte diferite pe parcursul vieții lor.
+
+    \item Declarați o variabilă de tip \texttt{int*}. Puteți să o faceți să rețină adresa unei variabile de tip \texttt{const int}? De ce credeți că previne acest lucru compilatorul?
+
+    \textbf{Observație:} în funcție de compilatorul folosit și de setările acestuia, s-ar putea să nu primiți o eroare când încercați să rezolvați acest exercițiu, ci doar un \textit{warning}.
+    
+    \item Creați o variabilă de tip \texttt{int* const} și inițializați-o cu adresa unei variabile de tip \texttt{int}. Puteți să modificați valoarea variabilei respective prin intermediul acestui pointer? Puteți face acest pointer să trimită către un alt \texttt{int}?
+
+    În momentul în care modificatorul \texttt{const} apare după \texttt{*}, obținem un pointer \emph{constant} la o variabilă (posibil) \emph{neconstantă}.
+
+    \item Creați o variabilă de tip \texttt{const int*} și inițializați-o cu adresa unei variabile de tip \texttt{int}. Puteți să modificați valoarea variabilei respective prin intermediul acestui pointer? Puteți face acest pointer să trimită către un alt \texttt{int}?
+    
+    În momentul în care modificatorul \texttt{const} apare înaintea \texttt{*}, obținem un pointer (posibil) \emph{neconstant} la o variabilă \emph{constantă}.
+
+    \item Creați o variabilă de tip \texttt{const int* const} și inițializați-o cu adresa unei variabile de tip \texttt{int}. Puteți să modificați valoarea variabilei respective prin intermediul acestui pointer? Puteți face acest pointer să trimită către un alt \texttt{int}?
+\end{enumerate}
+
+\subsection*{Metode \texorpdfstring{\texttt{const}}{const}}
+
+Toate metodele (nestatice) unei clase au acces la obiectul implicit; pot accesa direct datele membru și metodele clasei, sau putem face acest lucru prin intermediul pointerului \texttt{this}.
+
+Dacă nu declarăm altfel, obiectul implicit va fi (ca toate celelalte variabile din C++) \emph{mutabil}. Cu alte cuvinte, dacă clasa noastră se numește \texttt{MyClass}, atunci \texttt{this} va avea tipul de date \texttt{MyClass* const} (pointerul nu poate fi schimbat, dar obiectul către care trimite \textbf{nu} este constant).
+
+Ca să indicăm că o metodă din clasa noastră nu va modifica obiectul implicit, deci poate fi apelată și pe obiecte care sunt constante, trebuie să adăugăm modificatorul \texttt{const} după lista de parametrii formali:
+\begin{lstlisting}
+int my_method() const
+{
+    // nu pot modifica datele membru in aceasta metoda
+    // ...
+}
+\end{lstlisting}
+
+\begin{enumerate}
+    \item Definiți o clasă \texttt{Date} care să rețină o dată calendaristică (ziua, luna și anul, reținute ca numere întregi). Adăugați un constructor pentru această clasă și metode getter pentru fiecare dintre variabilele membru.
+
+    În subprogramul principal, creați un obiect de tip \texttt{const Data}. Modificați getteri să fie metode \texttt{const}, ca să îi puteți apela și pe acest obiect.
+
+    \item Definiți o clasă \texttt{DateInterval} care să rețină două obiecte de tipul \texttt{Date} (prima va fi anterioară cronologic față de a doua). Adăugați un constructor la această clasă care să inițializeze cele două date membru.
+
+    Definiți o metodă \texttt{const} care să determine numărul de ani dintre cele două date stocate în clasă (ca număr întreg).
+
+    Definiți o metodă cu altă metodă \texttt{const} care să determine numărul de decenii dintre cele două date stocate în clasă (ca număr întreg). Aceasta se va folosi de metoda definită anterior. Observați că în corpul acestei metode, nu puteți apela decât alte metode \texttt{const}, iar toate datele membru se comportă de parcă ar fi \texttt{const}.
+\end{enumerate}
